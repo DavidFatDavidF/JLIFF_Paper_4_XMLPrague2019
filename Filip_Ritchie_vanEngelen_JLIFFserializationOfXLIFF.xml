@@ -102,12 +102,12 @@
     <para>In this paper and XML Prague presentation, we will explain about
         <emphasis>JLIFF</emphasis>
       <citation>JLIFF</citation>, the JSON serialization of XLIFF. JLIFF is designed to start with
-      the 2.0 version number and XLIFF 2.0 and XLIFF 2.1 bidirectional mapping is being built in
-      parallel in the initial version. The design is extensible to support any future XLIFF 2.n+1
-      Version. The XLIFF 2 series has been designed to be backwards and forwards compatible. XLIFFF
-      2.n+1 versions can add orthogonal features such as the Advanced Validation added in XLIFF 2.1
-      or the Rendering Requirements to be added in XLIFF 2.2. All XLIFF 2.n specifications share the
-      core namespace </para>
+      the 2.0 version number and bidirectional mapping for both XLIFF 2.0 and XLIFF 2.1 is being
+      built in parallel in the initial version. The design is extensible to support any future XLIFF
+      2.n+1 Version. The XLIFF 2 series has been designed to be backwards and forwards compatible.
+      XLIFFF 2.n+1 versions can add orthogonal features such as the Advanced Validation added in
+      XLIFF 2.1 or the Rendering Requirements to be added in XLIFF 2.2. All XLIFF 2.n specifications
+      share the core namespace <code>urn:oasis:names:tc:xliff:document:2.0</code>.</para>
   <para>[NEEDS UPDATED] This paper is about managing <firstterm>Internationalization</firstterm>
       metadata throughout the multilingual content lifecycle. Even though corporations and
       governments routinely need to present the same, equivalent, or comparable content in various
