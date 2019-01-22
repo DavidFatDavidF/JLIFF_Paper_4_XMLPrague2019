@@ -118,9 +118,17 @@
       XLIFF 2.1 or the Rendering Requirements to be added in XLIFF 2.2. All XLIFF 2.n specifications
       share the core namespace <code>urn:oasis:names:tc:xliff:document:2.0</code>.</para>
     <para>OASIS XLIFF OMOS TC only recently started developing JLIFF prose specification that should
-      be released for the 1st public review by April 2019.</para>
-  <para>[NEEDS UPDATED] This paper is about managing <firstterm>Internationalization</firstterm>
-      metadata throughout the multilingual content lifecycle. Even though corporations and
+      be released for the 1st public review by April 2019. It is however clear that the
+      specification largely mimics the logical structure of the XLIFF 2 specifications. JLIFF is
+      designed to mirror XLIFF including its numerous modules. The modular design of XLIFF 2 makes
+      critical use of XML namespace support. Each XLIFF 2 module has elements or attributes defined
+      in namespaces other than the core XLIFF 2 namespace. This allows the involved agents
+      (conformance application targets) to handle all and only those areas of XLIFF data that are
+      relevant for their area of expertize. Now, how do you handle multi-namespace in JSON that
+      doesn't support namespaces? </para>
+  <para>The data formats we are describing in this paper are about managing
+        <firstterm>Internationalization</firstterm> and <firstterm>Localization</firstterm> payloads
+      and metadata throughout the multilingual content lifecycle. Even though corporations and
       governments routinely need to present the same, equivalent, or comparable content in various
       languages, <firstterm>multilingual content</firstterm> is usually not consumed in more than
       one language at the same time by the same end user. Typically the target audience consumes the
@@ -151,8 +159,9 @@
     <para>[NEEDS UPDATED] The foundational Internationalization Standard is of course
         <citation>Unicode</citation> along with some related Unicode Annexes. But in this paper we
       are taking the Unicode support for granted and will be looking at the domain standards W3C ITS
-      and OASIS XLIFF that are the open standards relevant for covering the industry process areas
-      outlined in the <link linkend="intro">Introduction</link>.</para>
+      and OASIS XLIFF along with its upcoming JSON serialization JLIFF that are the open standards
+      relevant for covering the industry process areas outlined in the <link linkend="intro"
+        >Introduction</link>.</para>
     <para>For a long time, XML has been another unchallenged foundation of the multilingual content
       interoperability and hence practically all Localization and Internationalization standards
       started as or became at some point XML vocabularies. Paramount industry wisdom is stored in
@@ -345,7 +354,7 @@
     </section>
     <section xml:id="smdatacats">
       <title>TBW</title>
-      <para>[NEEDS ADAPTED - left only datactas suitbale to demonstrate the point]</para>
+      <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
       <para><link xl:href="http://www.w3.org/TR/its20/#terminology">Terminology</link> can simply
         indicate words or multi-word expressions as terms or non-terms. This is how the category
         worked in ITS 1.0. In ITS 2.0, Terminology can be more useful by pointing to definitions or
@@ -462,12 +471,7 @@
         <link xl:href="http://tools.ietf.org/html/bcp47">http://tools.ietf.org/html/bcp47</link>
       </bibliomisc> IETF (Internet Engineering Task Force).</bibliomixed>
   
-  <bibliomixed><abbrev>NIF</abbrev> S. Hellmann, J. Lehmann, S. Auer, and M. Brümmer:
-        <title>Integrating NLP using Linked Data</title>. 12th International Semantic Web
-      Conference, Sydney, Australia, 2013. <bibliomisc><link
-          xl:href="http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf"/></bibliomisc>
-    </bibliomixed>
-
+  
   <bibliomixed><abbrev>ITS10</abbrev> C. Lieske and F. Sasaki, Eds.: <title>Internationalization Tag
         Set (ITS) Version 1.0</title>. W3C Recommendation, 03 April 2007. W3C. <bibliomisc><link
           xl:href="https://www.w3.org/TR/its/"/></bibliomisc>
@@ -478,6 +482,15 @@
         2.0</title>. W3C Recommendation, 29 October 2013. W3C. <bibliomisc><link
           xl:href="http://www.w3.org/TR/its20/"/></bibliomisc>
     </bibliomixed>
+  <bibliomixed><abbrev>L10nStandards</abbrev> D. Filip: Localization Standards Reader 4.0 [v4.0.1], Multilingual, vol. 30, no. 1, pp. 59–73, Jan/Feb-2019. <bibliomisc><link>https://magazine.multilingual.com/issue/jan-feb-2019dm/localization-standards-reader-4-0/</link></bibliomisc>
+  </bibliomixed>
+  
+  <bibliomixed><abbrev>NIF</abbrev> S. Hellmann, J. Lehmann, S. Auer, and M. Brümmer:
+    <title>Integrating NLP using Linked Data</title>. 12th International Semantic Web
+    Conference, Sydney, Australia, 2013. <bibliomisc><link
+      xl:href="http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf"/></bibliomisc>
+  </bibliomixed>
+  
   <bibliomixed><abbrev>UAX9</abbrev> M. Davis, A. Lanin, and A. Glass, Eds.: <title>UAX #9: Unicode
         Bidirectional Algorithm.</title>. Version: Unicode 9.0.0, Revision 35, 18 May 2016. Unicode
       Consortium. <bibliomisc><link xl:href="http://www.unicode.org/reports/tr9/tr9-35.html"
