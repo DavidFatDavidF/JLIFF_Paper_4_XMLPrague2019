@@ -23,7 +23,7 @@
           Research Centre, Trinity College Dublin, Ireland. Before 2011, he oversaw key research and
           change projects for Moravia’s worldwide operations. David held research scholarships at
           universities in Vienna, Hamburg and Geneva, and graduated in 2004 from Brno University
-          with a PhD in Analytic Philosophy. David also holds master’s degrees in Philosophy, Art
+          with a Ph.D. in Analytic Philosophy. David also holds master’s degrees in Philosophy, Art
           History, Theory of Art and German Philology.</para>
       </personblurb>
       <affiliation>
@@ -80,14 +80,23 @@
 </keywordset>
 
 <abstract>
-  <para><emphasis>XLIFF</emphasis> is the XML Localization Interchange File Format. The current
-        OASIS Standard version is <emphasis>XLIFF Version 2.1</emphasis>
+      <para><emphasis>JLIFF</emphasis>
+        <citation>JLIFF</citation> is the JSON serialization of XLIFF. Currently JLIFF only exists
+        as a reasonably stable JSON schema that is very close to being a full bidirectional mapping
+        to both XLIFF 2 Versions. <emphasis>XLIFF</emphasis> is the XML Localization Interchange
+        File Format. The current OASIS Standard version is <emphasis>XLIFF Version 2.1</emphasis>
         <citation>XLIFF21</citation>. The major new features added to <citation>XLIFF21</citation>
         compared to <emphasis>XLIFF Version 2. 0</emphasis>
         <citation>XLIFF20</citation> are the native <emphasis>W3C ITS 2.0</emphasis>
         <citation>ITS20</citation> support and the Advanced Validation feature via NVDL and
-        Schematron.</para>
-  <para>[MORE ABSTRACT CONTENT]  </para>
+        Schematron. This paper describes how XLIFF was ported to JSON via an abstract object model.
+        Challenges and design principles of transforming a multi-namespace business vocabulary into
+        JSON while preserving lossless machine to machine interchange between the serializations are
+        described in this paper. While we do explain about the internationalization (I18n) and
+        localization (L10n) business specifics, we are also striving to provide general takeaways
+        useful when porting XML based vocabularies into semantically and behaviorally interoperable
+        JSON serializations.    </para>
+  <para/>
 </abstract>
 </info>
 
@@ -108,6 +117,8 @@
       XLIFFF 2.n+1 versions can add orthogonal features such as the Advanced Validation added in
       XLIFF 2.1 or the Rendering Requirements to be added in XLIFF 2.2. All XLIFF 2.n specifications
       share the core namespace <code>urn:oasis:names:tc:xliff:document:2.0</code>.</para>
+    <para>OASIS XLIFF OMOS TC only recently started developing JLIFF prose specification that should
+      be released for the 1st public review by April 2019.</para>
   <para>[NEEDS UPDATED] This paper is about managing <firstterm>Internationalization</firstterm>
       metadata throughout the multilingual content lifecycle. Even though corporations and
       governments routinely need to present the same, equivalent, or comparable content in various
