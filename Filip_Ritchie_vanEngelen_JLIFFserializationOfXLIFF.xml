@@ -38,7 +38,14 @@
     <uri>http://www.vistatec.com</uri>
     <uri>http://blog.phil-ritchie.net/idiomatic-prose</uri>
     <personblurb>
-      <para><emphasis role="bold">Phil Ritchie</emphasis>is Chief Technology Officer at Vistatec, a Dublin headquartered Language Service Provider where he directs all Research, Development and Process Innovation activities. He is a founding industrial partner of the ADAPT Research Centre and Chair of the W3C Internationalization Tag Set Interest Group. Phil participates in many industry groups such as the OASIS XLIFF Object Model and Other Serializations Technical Committee and is lead architect of the Ocelot and JliffGraphTools open source projects.</para>
+      <para><emphasis role="bold">Phil Ritchie</emphasis>is Chief Technology 
+      Officer at Vistatec, a Dublin headquartered Language Service Provider 
+      where he directs all Research, Development and Process Innovation 
+      activities. He is a founding industrial partner of the ADAPT Research 
+      Centre and Chair of the W3C Internationalization Tag Set Interest Group. 
+      Phil participates in many industry groups such as the OASIS XLIFF Object 
+      Model and Other Serializations Technical Committee and is lead architect 
+      of the Ocelot and JliffGraphTools open source projects.</para>
     </personblurb>
     <affiliation>
       <jobtitle>CTO</jobtitle>
@@ -457,7 +464,37 @@
 
 <section>
 	<title>Reference Implementation</title>
-	<para>It was an early goal to work on a concrete implementation of JLIFF in parallel to the development of the schema. It would give us an early opportunity to find and work through any design floors or limitations. Fortuneately the <citation>JliffGraphTools</citation> reference implementation has been open source since early on.</para><para>It was a wish that JLIFF should be easy to implement and serialize/deserialize using well-known Json libraries.</para><para>One of the decisions taken in relation to element mappings was not to explicitly support XLIFF <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements. It was decided that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and <code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to <code>&lt;sc/></code> and <code>&lt;ec/></code> pairs.</para><para>Having got the priority of json serialization and deserialization working we then looked at round tripping. JliffGraphTools supports bidirectional serialization between XLIFF and JLIFF and it is this library which powers the <citation>Xliff2Jliff</citation>web application made public at http://xliff2jliff.azurewebsites.net/</para>
+	<para>It was an early goal to work on a concrete implementation of JLIFF 
+	in parallel to the development of the schema. It would give us an early 
+	opportunity to find and work through any design floors or limitations. 
+	Fortuneately the <citation>JliffGraphTools</citation> reference 
+	implementation has been open source since early on.</para><para>It was a 
+	wish that JLIFF should be easy to implement and serialize/deserialize 
+	using well-known Json libraries.</para><para>One of the decisions taken in 
+	relation to element mappings was not to explicitly support XLIFF 
+	<code>&lt;pc/></code> and <code>&lt;mrk/></code> elements. It was decided 
+	that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and 
+	<code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to 
+	<code>&lt;sc/></code> and <code>&lt;ec/></code> pairs.</para><para>Another 
+	noticable difference in the structure of JLIFF and XLIFF is inline markup. 
+	In XLIFF inline markup is nested within the segment text as child elements 
+	of the <code>&lt;segment/></code> elements. In JLIFF the segment text and 
+	inline markup are stored as an array of objects property of the Unit's 
+	source and target properties. MAYBE ADD SOME EXAMPLES. This has an impact 
+	on how rendering tools may display strings for translation, see below on 
+	the approach taken in JGT.</para><para>Having got the priority of json 
+	serialization and deserialization working we then looked at round 
+	tripping. JliffGraphTools supports bidirectional serialization between 
+	XLIFF and JLIFF and it is this library which powers the 
+	<citation>Xliff2Jliff</citation>web application made public at 
+	http://xliff2jliff.azurewebsites.net/</para><para>At present when segments 
+	for translation are rendered in JGT there is an option to flatten the 
+	array of text and inline markup objects and render them in a way which is 
+	based upon the approach taken in the <citation>Okapi Framework</citation> 
+	XLIFF library. That is inline markup tags are converted to coded text 
+	which uses characters from the private use area of Unicode to delimit 
+	inline markup tags. (see 
+	http://okapiframework.org/devguide/gettingstarted.html#textUnits).</para>
 </section>
 
   <section>
