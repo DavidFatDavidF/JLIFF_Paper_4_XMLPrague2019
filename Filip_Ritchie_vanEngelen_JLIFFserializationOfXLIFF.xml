@@ -35,9 +35,10 @@
   <author>
     <personname>Phil Ritchie</personname>
     <email>phil.ritchie@vistatec.com</email>
-    <uri>URI</uri>
+    <uri>http://www.vistatec.com</uri>
+    <uri>http://blog.phil-ritchie.net/idiomatic-prose</uri>
     <personblurb>
-      <para><emphasis role="bold">Phil Ritchie</emphasis> BLURB.</para>
+      <para><emphasis role="bold">Phil Ritchie</emphasis>is Chief Technology Officer at Vistatec, a Dublin headquartered Language Service Provider where he directs all Research, Development and Process Innovation activities. He is a founding industrial partner of the ADAPT Research Centre and Chair of the W3C Internationalization Tag Set Interest Group. Phil participates in many industry groups such as the OASIS XLIFF Object Model and Other Serializations Technical Committee and is lead architect of the Ocelot and JliffGraphTools open source projects.</para>
     </personblurb>
     <affiliation>
       <jobtitle>CTO</jobtitle>
@@ -453,6 +454,12 @@
     <para>TBW</para>
 
 </section>
+
+<section>
+	<title>Reference Implementation</title>
+	<para>It was an early goal to work on a concrete implementation of JLIFF in parallel to the development of the schema. It would give us an early opportunity to find and work through any design floors or limitations. Fortuneately the <citation>JliffGraphTools</citation> reference implementation has been open source since early on.</para><para>It was a wish that JLIFF should be easy to implement and serialize/deserialize using well-known Json libraries.</para><para>One of the decisions taken in relation to element mappings was not to explicitly support XLIFF <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements. It was decided that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and <code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to <code>&lt;sc/></code> and <code>&lt;ec/></code> pairs.</para><para>Having got the priority of json serialization and deserialization working we then looked at round tripping. JliffGraphTools supports bidirectional serialization between XLIFF and JLIFF and it is this library which powers the <citation>Xliff2Jliff</citation>web application made public at http://xliff2jliff.azurewebsites.net/</para>
+</section>
+
   <section>
     <title>Conclusions</title>
     <para>TBW</para>
