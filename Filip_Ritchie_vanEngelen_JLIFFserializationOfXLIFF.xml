@@ -206,9 +206,16 @@
       core (as well as successful modules surviving from 2.0). XLIFF 2 makes a distinction between
       modules and extensions. While module features are optional, <firstterm>Conformant XLIFF
         Agents</firstterm> are bound by an absolute prohibition to delete module based metadata,
-      whereas deletion of extension based data is discouraged but not prohibited. The <firstterm>ITS
-        Module</firstterm> is the biggest feature that was requested by the industry community and
-      approved by the TC for specification as part of <citation>XLIFF21</citation>.</para>
+      whereas deletion of extension based data is discouraged but not prohibited (the SHOULD NOT
+      normative keyword is used). The <firstterm>ITS Module</firstterm> is the biggest feature that
+      was requested by the industry community and approved by the TC for specification as part of
+        <citation>XLIFF21</citation>.</para>
+    <para>So in a nutshell the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
+      demonstrated as the two overlapping listings of namespaces.<example>
+        <title>Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0</title>
+        <programlisting/>
+      </example></para>
+    <para/>
     <para>The easiest metadata category to explain the idea of ITS is
         <firstterm>Translate</firstterm>; this is simply a boolean flag that can be used to indicate
       Translatability or not in source content.</para>
@@ -336,7 +343,7 @@
     <section xml:id="extractioncats">
       <title>TBW</title>
       <para>TBW</para>
-      <para>[NEEDS ADAPTED - left only datactas suitbale to demonstrate the point]</para>
+      <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
       <para><link xl:href="http://www.w3.org/TR/its20/#language-information">Language
           Information</link> uses the <citation>BCP47</citation> data model via
           <code>xml:lang</code> to indicate the natural language of content. This is obviously very
@@ -392,7 +399,7 @@
     </section>
     <section>
       <title>TBW</title>
-      <para>[NEEDS ADAPTED - left only datactas suitbale to demonstrate the point]</para>
+      <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
       <para>It might seem that this type of metadata is completely new in <citation>ITS
           2.0</citation>, since <citation>ITS 1.0</citation> concentrated almost exclusively on
         source metadata. However, as mentioned above, Terminology - that was present in already in
@@ -467,11 +474,10 @@
 
 <section>
 	<title>Reference Implementation</title>
-	<para>It was an early goal to work on a concrete implementation of JLIFF 
-	in parallel to the development of the schema. It would give us an early 
-	opportunity to find and work through any design floors or limitations. 
-	Fortuneately the <citation>JliffGraphTools</citation> reference 
-	implementation has been open source since early on.</para><para>It was a 
+	<para>It was an early goal to work on a concrete implementation of JLIFF in parallel to the
+      development of the schema. It would give us an early opportunity to find and work through any
+      design flaws or limitations. Fortunately, the <citation>JliffGraphTools</citation> reference
+      implementation has been open source since early on.</para><para>It was a 
 	wish that JLIFF should be easy to implement and serialize/deserialize 
 	using well-known Json libraries.</para><para>One of the decisions taken in 
 	relation to element mappings was not to explicitly support XLIFF 
@@ -485,12 +491,10 @@
 	inline markup are stored as an array of objects property of the Unit's 
 	source and target properties. MAYBE ADD SOME EXAMPLES. This has an impact 
 	on how rendering tools may display strings for translation, see below on 
-	the approach taken in JGT.</para><para>Having got the priority of json 
-	serialization and deserialization working we then looked at round 
-	tripping. JliffGraphTools supports bidirectional serialization between 
-	XLIFF and JLIFF and it is this library which powers the 
-	<citation>Xliff2Jliff</citation>web application made public at 
-	http://xliff2jliff.azurewebsites.net/</para><para>At present when segments 
+	the approach taken in JGT.</para><para>Having got the priority of json serialization and deserialization working we then looked at
+      round tripping. JliffGraphTools supports bidirectional serialization between XLIFF and JLIFF
+      and it is this library which powers the <citation>Xliff2Jliff</citation> web application made
+      public at http://xliff2jliff.azurewebsites.net/</para><para>At present when segments 
 	for translation are rendered in JGT there is an option to flatten the 
 	array of text and inline markup objects and render them in a way which is 
 	based upon the approach taken in the <citation>Okapi Framework</citation> 
