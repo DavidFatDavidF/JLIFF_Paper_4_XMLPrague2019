@@ -129,12 +129,14 @@
       be released for the 1st public review by April 2019. It is however clear that the
       specification largely mimics the logical structure of the XLIFF 2 specifications. JLIFF is
       designed to mirror XLIFF including its numerous modules. The modular design of XLIFF 2 makes
-      critical use of XML namespace support. Each XLIFF 2 module has elements or attributes defined
-      in namespaces other than the core XLIFF 2 namespace. This allows the involved agents
+      critical use of XML's namespace support. Each XLIFF 2 module has elements or attributes
+      defined in namespaces other than the core XLIFF 2 namespace. This allows the involved agents
       (conformance application targets) to handle all and only those areas of XLIFF data that are
-      relevant for their area of expertize. Now, how do you handle multi-namespace in JSON that
-      doesn't support namespaces? </para>
-  <para>The data formats we are describing in this paper are about managing
+      relevant for their area of expertize (for instance <firstterm>Translation Memory</firstterm>
+      matching, <firstterm>Terminology</firstterm>, <firstterm>Text Analysis</firstterm> or entity
+      recognition, <firstterm>Size and Length Restrictions</firstterm>, and so on). Now, how do you
+      handle multi-namespace in JSON that doesn't support namespaces? </para>
+  <para>The data formats we are describing in this paper are for managing
         <firstterm>Internationalization</firstterm> and <firstterm>Localization</firstterm> payloads
       and metadata throughout the multilingual content lifecycle. Even though corporations and
       governments routinely need to present the same, equivalent, or comparable content in various
@@ -151,14 +153,15 @@
         <firstterm>Translation</firstterm> capabilities. While
         <firstterm>Internationalization</firstterm> is primarily done on a monolingual content or
       product, <firstterm>Localization</firstterm>, and <firstterm>Translation</firstterm> when done
-      at a certain level of maturity - as a repeatable process possibly aspiring to efficiencies of
-      scale and automation - requires a persistent <firstterm>Bitext</firstterm> format.</para>
-    <para>This paper describes an open, standard, and transparent way of managing
-        <firstterm>Internationalization</firstterm> metadata in multilingual repositories from
-      seeding them in monolingual source or pivot content through extraction to an open
-        <firstterm>Bitext</firstterm> format, manipulating or injecting relevant metadata categories
-      during the <firstterm>Bitext Roundtrip</firstterm>, to keeping, archiving or throwing away the
-      metadata that arrived processed in the target content.    </para>
+      at a certain level of maturity -- as a repeatable process possibly aspiring to efficiencies of
+      scale and automation -- requires a persistent <firstterm>Bitext</firstterm> format.</para>
+    <para>Our paper presented to XML Prague 2017 <citation>3</citation> made a detailed introduction
+      of XLIFF (<citation>XLIFF21prd02</citation> as the then current predecessor of
+        <citation>XLIFF21</citation> backwards compatible with <citation>XLIFF20</citation>) as the
+      open standard Bitext format used in the Localization industry. This paper describes how the
+      complete open transparent bitext capability of XLIFF can be ported to JSON environments using
+      the JLIFF format. We also demonstrate that JLIFF and XLIFF can be used interchangeably,
+      effectively allowing to switch between XML and JSON pipelines at will.</para>
 
 </section>
 
@@ -335,7 +338,7 @@
       <para>TBW</para>
       <para>[NEEDS ADAPTED - left only datactas suitbale to demonstrate the point]</para>
       <para><link xl:href="http://www.w3.org/TR/its20/#language-information">Language
-          Information</link> uses the <citation>BCP 47</citation> data model via
+          Information</link> uses the <citation>BCP47</citation> data model via
           <code>xml:lang</code> to indicate the natural language of content. This is obviously very
         useful in case you want to source translations or even just render the content with proper
         locale specifics.</para>
@@ -505,11 +508,14 @@
 <bibliography xml:id="references">
 
   <bibliomixed><abbrev>1</abbrev> S. Saadatfar and D. Filip: <title>Advanced Validation Techniques
-    for XLIFF 2</title>. Localisation Focus, vol. 14, no. 1, pp. 43-50, April 2015.
-    <bibliomisc><link xl:href="http://www.localisation.ie/locfocus/issues/14/1"/></bibliomisc>
-  </bibliomixed>
+        for XLIFF 2</title>. in Localisation Focus, vol. 14, no. 1, pp. 43-50, April 2015.
+          <bibliomisc><link xl:href="http://www.localisation.ie/locfocus/issues/14/1"/></bibliomisc>
+    </bibliomixed>
   <bibliomixed><abbrev>2</abbrev> S. Saadatfar and D. Filip: <title>Best Practice for DSDL-based
-        Validation</title>. XML London 2016 Conference Proceedings, May 2016. </bibliomixed>
+    Validation</title>. in XML London 2016 Conference Proceedings, May 2016. <bibliomisc><link xl:href="https://xmllondon.com/2016/xmllondon-2016-proceedings.pdf#page=64"></link></bibliomisc></bibliomixed>
+    
+  <bibliomixed><abbrev>3</abbrev> D. Filip, <title>W3C ITS 2.0 in OASIS XLIFF 2.1</title>, in XML
+    Prague 2017 - Conference Proceedings, Prague, 2017, vol. 2017, pp. 55–71. <bibliomisc xl:href="http://archive.xmlprague.cz/2017/files/xmlprague-2017-proceedings.pdf#page=67"><link></link></bibliomisc></bibliomixed>
   
   <bibliomixed><abbrev>BCP47</abbrev> M. Davis, Ed. <title>Tags for Identifying Languages</title>, <bibliomisc>
         <link xl:href="http://tools.ietf.org/html/bcp47">http://tools.ietf.org/html/bcp47</link>
@@ -567,12 +573,12 @@
         /></bibliomisc>
     </bibliomixed>
 
-  <bibliomixed><abbrev>XLIFF 2.1</abbrev> D. Filip, T. Comerford, S. Saadatfar, F. Sasaki, and Y.
-    Savourel, Eds.: <title>XLIFF Version 2.1</title>. Public Review Draft 02, February 2017.
-    OASIS <bibliomisc><link
-      xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/csprd02/xliff-core-v2.1-csprd02.html"
-    /></bibliomisc>
-  </bibliomixed>
+  <bibliomixed><abbrev>XLIFF21prd02</abbrev> D. Filip, T. Comerford, S. Saadatfar, F. Sasaki, and Y.
+      Savourel, Eds.: <title>XLIFF Version 2.1</title>. Public Review Draft 02, February 2017. OASIS
+          <bibliomisc><link
+          xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/csprd02/xliff-core-v2.1-csprd02.html"
+        /></bibliomisc>
+    </bibliomixed>
   
 
 </bibliography>
