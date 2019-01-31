@@ -171,8 +171,8 @@
         <citation>Unicode</citation> along with some related Unicode Annexes. But in this paper we
       are taking the Unicode support for granted and will be looking at the domain standards W3C ITS
       and OASIS XLIFF along with its upcoming JSON serialization JLIFF that are the open standards
-      relevant for covering the industry process areas outlined in the <link linkend="intro"
-        >Introduction</link>.</para>
+      relevant for covering the industry process areas outlined in the seond part of the <link
+        linkend="intro">Introduction</link>.</para>
     <para>For a long time, XML has been another unchallenged foundation of the multilingual content
       interoperability and hence practically all Localization and Internationalization standards
       started as or became at some point XML vocabularies. Paramount industry wisdom is stored in
@@ -213,9 +213,36 @@
     <para>So in a nutshell the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
       demonstrated as the two overlapping listings of namespaces.<example>
         <title>Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0</title>
-        <programlisting/>
+        <programlisting>urn:oasis:names:tc:xliff:document:2.0
+
+urn:oasis:names:tc:xliff:matches:2.0
+
+urn:oasis:names:tc:xliff:glossary:2.0
+
+urn:oasis:names:tc:xliff:fs:2.0
+
+urn:oasis:names:tc:xliff:metadata:2.0
+
+urn:oasis:names:tc:xliff:resourcedata:2.0
+
+urn:oasis:names:tc:xliff:sizerestriction:2.0
+
+urn:oasis:names:tc:xliff:validation:2.0</programlisting>
       </example></para>
-    <para/>
+    <para>
+      <example>
+        <title>Namespaces that appear only in XLIFF 2.1</title>
+        <programlisting>http://www.w3.org/2005/11/its
+
+urn:oasis:names:tc:xliff:itsm:2.1</programlisting>
+      </example>
+    </para>
+    <para>
+      <example>
+        <title>Namespaces that appear only in XLIFF 2.0</title>
+        <programlisting>urn:oasis:names:tc:xliff:changetracking:2.0</programlisting>
+      </example>
+    </para>
     <para>The easiest metadata category to explain the idea of ITS is
         <firstterm>Translate</firstterm>; this is simply a boolean flag that can be used to indicate
       Translatability or not in source content.</para>
