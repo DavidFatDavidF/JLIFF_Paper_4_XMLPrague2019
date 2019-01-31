@@ -649,16 +649,17 @@ version="2.1" srcLang="en" trgLang="fr">
   </bibliomixed>
   
   <bibliomixed><abbrev>UAX9</abbrev> M. Davis, A. Lanin, and A. Glass, Eds.: <title>UAX #9: Unicode
-        Bidirectional Algorithm.</title>. Version: Unicode 9.0.0, Revision 35, 18 May 2016. Unicode
-      Consortium. <bibliomisc><link xl:href="http://www.unicode.org/reports/tr9/tr9-35.html"
+        Bidirectional Algorithm.</title>. Version: Unicode 11.0.0, Revision 39, 09 May 2018. Unicode
+      Consortium. <bibliomisc><link xl:href="http://www.unicode.org/reports/tr9/tr9-39.html"
         /></bibliomisc>
     </bibliomixed>  
   
-  <bibliomixed><abbrev>Unicode</abbrev> K. Whistler et al., Eds.:
-    <title>The Unicode Standard</title>. Version 9.0 - Core Specification, July 2016. Unicode Consortium. <bibliomisc><link
-      xl:href="http://www.unicode.org/versions/Unicode9.0.0/UnicodeStandard-9.0.pdf"
-    /></bibliomisc>
-  </bibliomixed>
+  <bibliomixed><abbrev>Unicode</abbrev> K. Whistler et al., Eds.: <title>The Unicode
+        Standard</title>. Version 11.0 - Core Specification, 05 June 2018. Unicode Consortium.
+          <bibliomisc><link
+          xl:href="https://www.unicode.org/versions/Unicode11.0.0/UnicodeStandard-11.0.pdf"
+        /></bibliomisc>
+    </bibliomixed>
 
   <bibliomixed><abbrev>XLIFF12</abbrev> Y. Savourel, J. Reid, T. Jewtushenko, and R. M. Raya, Eds.:
       XLIFF Version 1.2, OASIS Standard. OASIS, 2008. Y. Savourel, D. Filip, R. M. Raya, and Y.
