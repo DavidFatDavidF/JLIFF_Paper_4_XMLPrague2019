@@ -610,8 +610,10 @@ version="2.1" srcLang="en" trgLang="fr">
       with XLIFF and JLIFF, we believe that important topics were covered that will be useful for
       designer who will endeavor porting their own specialized multi-namespace business vocabularies
       into JSON.</para>
-    <para>The major takeway we'd like to suggest is not to port directly from XML to JSON. XML
-      serializations are as a rule fraught with "XMLism" or "SGMLism". While some of the XML
+    <para>The major takeway we'd like to suggest is not to port directly from XML to JSON. It is
+      worth the time to start your exercise with expressing your XML data model in an abstract way,
+      we used UML class diagram as the serialization independent abstract method.</para>
+    <para>XML serializations are as a rule fraught with "XMLism" or "SGMLism". While some of the XML
       capabilities such as the multi-namespace support are clear XML advantages that will force the
       JSON-equivalent-designer into complex and more or less elegant workarounds and compromises.
       Some other XML traits and constraints are arbitrary from the point of view of other languages
@@ -633,9 +635,9 @@ version="2.1" srcLang="en" trgLang="fr">
     }</programlisting>Namespaces
       support workarounds in JSON are worth an extra mention. While JSON doesn't support namespaces
         <emphasis>per se</emphasis>. We identified the JSON-LD methods for introducing and
-      shortening fully qualified names quote useful as a namespaces support surrogate. For practical
-      reasons (like pervention of hammering of OASIS servers to read XLIFF module context files) we
-      decided to use the full blown JSON-LD method for expanding refixes into fully qualified names
+      shortening fully qualified names quite useful as a namespaces support surrogate. For practical
+      reasons (like prevention of hammering of OASIS servers to read XLIFF module context files) we
+      decided to use the full blown JSON-LD method for expanding prefixes into fully qualified names
       only for extensions. We decided to use an arbitrary "_" (underscore) prefix separator to make
       the XLIFF modules human discernable. There goes the disadvantage of losing the modularity of
       XLIFF modules in JLIFF, yet we felt that JSON-LD-coding of each of the modules data would be
