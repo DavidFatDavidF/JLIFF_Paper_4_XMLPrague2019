@@ -622,7 +622,24 @@ version="2.1" srcLang="en" trgLang="fr">
         <code>preserve</code> | <code>default</code> flag in your JSON serialization. Instead make
       sure that all inline data is normalized and set to <code>preserve</code> in your XML data.
       JSON data types are much poorer than XML datatyes, nevertheless, you can make up for this with
-      relative ease with the usage of regular expression patterns in your JSON schema.</para>
+      relative ease with the usage of regular expression patterns in your JSON schema. For
+      instance</para>
+    <para><example>
+        <title>NCName pattern in JSON schema</title>
+      </example><programlisting>"NCName": {
+      "description": "XSD NCName type for xml:id interoperability",
+      "type": "string",
+      "pattern": "^[_A-Za-z][-._A-Za-z0-9]*$"
+    }</programlisting>Namespaces
+      support workarounds in JSON are worth an extra mention. While JSON doesn't support namespaces
+        <emphasis>per se</emphasis>. We identified the JSON-LD methods for introducing and
+      shortening fully qualified names quote useful as a namespaces support surrogate. For practical
+      reasons (like pervention of hammering of OASIS servers to read XLIFF module context files) we
+      decided to use the full blown JSON-LD method for expanding refixes into fully qualified names
+      only for extensions. We decided to use an arbitrary "_" (underscore) prefix separator to make
+      the XLIFF modules human discernable. There goes the disadvantage of losing the modularity of
+      XLIFF modules in JLIFF, yet we felt that JSON-LD-coding of each of the modules data would be
+      very oblique and heavyweight with minor benefits to outweigh the drawbacks.</para>
   </section>
 
 <bibliography xml:id="references">
