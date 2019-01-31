@@ -355,7 +355,22 @@
         </figure>
         
       </para>
-      <para>The above class diagram shows that a LIOM has three options of logical roots. The
+      <para>The above can be be described as in a natural language as follows:</para>
+      <para>A <firstterm>LIOM</firstterm> instance contains at least one file. Each file can contain
+        an optional recursive group structure of an arbitrary depth. Because grouping is fully
+        optional, files can contain only a flat series of units. But also any file or group can
+        contain either a flat structure of units or an array of groups and units (subgroups). Each
+        unit contains at least one sub-unit of the type segment (rather than ignorable). Each
+        sub-unit contains exactly one source and at most one target. Bitext is designed to represent
+        the localizable source structure and only later in the process is expected to be Enriched
+        with aligned target content. The content data type can contain character data mixed with
+        inline elements. It is worth noting that XLIFF even in its XML serialization only preserves
+        a treelike document object model down to unit. In line markup present in the source and
+        target content data can form spans that can and often have to overlap the tree structure
+        given by the well-formed <code>&lt;mrk></code>, <code>&lt;pc></code>,
+          <code>&lt;source></code>, <code>&lt;target></code>, <code>&lt;segment></code>, and
+          <code>&lt;ignorable></code> tags.</para>
+      <para>The above class diagram shows that a LIOM has four options of logical roots. The
         original XML serialization, i.e. XLIFF 2, can only use the top level root object according
         to its own grammar. On the other hand, the abstract object model caters for use cases where
         LIOM fragments could be exchanged. Such scenarios include real time unit exchnage between
@@ -365,7 +380,7 @@
         so on.</para>
       <para>Based on the above, a LIOM instance can represent a number of <firstterm>source
           files</firstterm> intended for Localization. The top level wrapper in the XML
-        serialization is the <code>&lt;xliff></code> element, top level object in the JSON
+        serialization is the <code>&lt;xliff></code> element, the top level object in the JSON
         serialization is <code>jliff</code>.</para>
       <para>
         <example>
@@ -400,6 +415,12 @@ version="2.1" srcLang="en" trgLang="fr">
 }</programlisting>
         </example>
       </para>
+      <para>Comparing the two examples above, it is clear that XLIFF in its original XML
+        serialization doesn't have another legal option but to represent the whole project structure
+        of source files. JLIFF has been conceived from the beginning the JSON Localization
+          <emphasis>Fragment</emphasis> Format, so that top level JLIFF object (<code>jliff</code>)
+        can wrap an array of files (within the <code>files</code> object), an array of groups or
+        units (within the <code>subitems</code> object) </para>
       <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
       <para><link xl:href="http://www.w3.org/TR/its20/#language-information">Language
           Information</link> uses the <citation>BCP47</citation> data model via
