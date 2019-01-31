@@ -446,10 +446,11 @@ version="2.1" srcLang="en" trgLang="fr">
       </para>
       <para>Comparing the two examples above, it is clear that XLIFF in its original XML
         serialization doesn't have another legal option but to represent the whole project structure
-        of source files. JLIFF has been conceived from the beginning the JSON Localization
+        of source files. JLIFF has been conceived from the beginning as the JSON Localization
           <emphasis>Fragment</emphasis> Format, so that top level JLIFF object (<code>jliff</code>)
         can wrap an array of files (within the <code>files</code> object), an array of groups or
-        units (within the <code>subitems</code> object) </para>
+        units (within the <code>subitems</code> object), or an array of sub-units (within the
+          <code>subunits</code> object). </para>
       <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
       <para><link xl:href="http://www.w3.org/TR/its20/#language-information">Language
           Information</link> uses the <citation>BCP47</citation> data model via
@@ -571,7 +572,11 @@ version="2.1" srcLang="en" trgLang="fr">
 <section>
 <title>The design of JLIFF</title>
     <para>TBW</para>
-    <para>TBW</para>
+    <para>One of the decisions taken in relation to element mappings was not to explicitly support
+      XLIFF <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements. It was decided that
+        <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and <code>&lt;em/></code> pairs,
+      and <code>&lt;pc/></code> is mapped to <code>&lt;sc/></code> and <code>&lt;ec/></code>
+      pairs.</para>
 
 </section>
 
@@ -579,37 +584,45 @@ version="2.1" srcLang="en" trgLang="fr">
 	<title>Reference Implementation</title>
 	<para>It was an early goal to work on a concrete implementation of JLIFF in parallel to the
       development of the schema. It would give us an early opportunity to find and work through any
-      design flaws or limitations. Fortunately, the <citation>JliffGraphTools</citation> reference
-      implementation has been open source since early on.</para><para>It was a 
+      design flaws or limitations. Fortunately, the <citation>JliffGraphTools</citation>  (JGT)
+      reference implementation has been open source since early on.</para><para>It was a 
 	wish that JLIFF should be easy to implement and serialize/deserialize 
-	using well-known Json libraries.</para><para>One of the decisions taken in 
-	relation to element mappings was not to explicitly support XLIFF 
-	<code>&lt;pc/></code> and <code>&lt;mrk/></code> elements. It was decided 
-	that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and 
-	<code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to 
-	<code>&lt;sc/></code> and <code>&lt;ec/></code> pairs.</para><para>Another 
-	noticable difference in the structure of JLIFF and XLIFF is inline markup. 
-	In XLIFF inline markup is nested within the segment text as child elements 
-	of the <code>&lt;segment/></code> elements. In JLIFF the segment text and 
-	inline markup are stored as an array of objects property of the Unit's 
-	source and target properties. MAYBE ADD SOME EXAMPLES. This has an impact 
-	on how rendering tools may display strings for translation, see below on 
-	the approach taken in JGT.</para><para>Having got the priority of json serialization and deserialization working we then looked at
-      round tripping. JliffGraphTools supports bidirectional serialization between XLIFF and JLIFF
+	using well-known Json libraries.</para><para>Another noticeable difference in the structure of JLIFF and XLIFF is inline markup. In XLIFF
+      inline markup is nested within the segment text as child elements of the
+        <code>&lt;segment/></code> elements. In JLIFF the segment text and inline markup are stored
+      as an array of objects property of the Unit's source and target properties. MAYBE ADD SOME
+      EXAMPLES. This has an impact on how rendering tools may display strings for translation, see
+      below on the approach taken in JGT.</para><para>Having got the priority of JSON serialization and deserialization working we then looked at
+      roundtripping. JliffGraphTools supports bidirectional serialization between XLIFF and JLIFF
       and it is this library which powers the <citation>Xliff2Jliff</citation> web application made
-      public at http://xliff2jliff.azurewebsites.net/</para><para>At present when segments 
-	for translation are rendered in JGT there is an option to flatten the 
-	array of text and inline markup objects and render them in a way which is 
-	based upon the approach taken in the <citation>Okapi Framework</citation> 
-	XLIFF library. That is inline markup tags are converted to coded text 
-	which uses characters from the private use area of Unicode to delimit 
-	inline markup tags. (see 
-	http://okapiframework.org/devguide/gettingstarted.html#textUnits).</para>
+        public at <link xl:href="http://xliff2jliff.azurewebsites.net/">http://xliff2jliff.azurewebsites.net/</link>.</para><para>At present when segments for translation are rendered in JGT, there is an option to flatten
+      the array of text and inline markup objects and render them in a way which is based upon the
+      approach taken in the <citation>Okapi Framework</citation> XLIFF library. That is inline
+      markup tags are converted to coded text which uses characters from the private use area of
+      Unicode to delimit inline markup tags. (see
+      http://okapiframework.org/devguide/gettingstarted.html#textUnits).</para>
 </section>
 
   <section>
     <title>Conclusions</title>
-    <para>TBW</para>
+    <para>In the above we tried to show how we ported into JSON XLIFF 2, a complex business
+      vocabulary from the area of Translation and Localization. While the paper deals in detail only
+      with XLIFF and JLIFF, we believe that important topics were covered that will be useful for
+      designer who will endeavor porting their own specialized multi-namespace business vocabularies
+      into JSON.</para>
+    <para>The major takeway we'd like to suggest is not to port directly from XML to JSON. XML
+      serializations are as a rule fraught with "XMLism" or "SGMLism". While some of the XML
+      capabilities such as the multi-namespace support are clear XML advantages that will force the
+      JSON-equivalent-designer into complex and more or less elegant workarounds and compromises.
+      Some other XML traits and constraints are arbitrary from the point of view of other languages
+      and serialization methods.</para>
+    <para>To name just a few examples of XMLism that doesn't need maintained in JSON. You don't need
+      to support well formed versions of inline markup in JSON, it is easier to serialize everything
+      linearly. In JSON, all payload space is significant, so you don't need to keep the
+        <code>preserve</code> | <code>default</code> flag in your JSON serialization. Instead make
+      sure that all inline data is normalized and set to <code>preserve</code> in your XML data.
+      JSON data types are much poorer than XML datatyes, nevertheless, you can make up for this with
+      relative ease with the usage of regular expression patterns in your JSON schema.</para>
   </section>
 
 <bibliography xml:id="references">
