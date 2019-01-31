@@ -3,14 +3,13 @@
 	 xmlns:xl="http://www.w3.org/1999/xlink"
 	 version="5.0" xml:lang="en">
 <info>
-<title>JLIFF, Creating a JSON Serialization of OASIS XLIFF</title>
-<subtitle>Lossless exchange between asynchronous XML based and real time JSON based
+    <title>JLIFF, Creating a JSON Serialization of OASIS XLIFF</title>
+    <subtitle>Lossless exchange between asynchronous XML based and real time JSON based
       pipelines</subtitle>
-
-<author>
+    <author>
       <personname>David Filip</personname>
       <email>david.filip@adaptcentre.ie</email>
-  <uri>https://linkedin.com/in/davidfatdavidf</uri>
+      <uri>https://linkedin.com/in/davidfatdavidf</uri>
       <personblurb>
         <para><emphasis role="bold">David Filip</emphasis> is Chair of OASIS XLIFF OMOS TC;
           Secretary, Editor and Liaison Officer of OASIS XLIFF TC; a former Co-Chair and Editor for
@@ -31,63 +30,58 @@
         <orgname>ADAPT Centre at Trinity College Dublin</orgname>
       </affiliation>
     </author>
-  
-  <author>
-    <personname>Phil Ritchie</personname>
-    <email>phil.ritchie@vistatec.com</email>
-    <uri>http://www.vistatec.com</uri>
-    <uri>http://blog.phil-ritchie.net/idiomatic-prose</uri>
-    <personblurb>
-      <para><emphasis role="bold">Phil Ritchie</emphasis>is Chief Technology 
-      Officer at Vistatec, a Dublin headquartered Language Service Provider 
-      where he directs all Research, Development and Process Innovation 
-      activities. He is a founding industrial partner of the ADAPT Research 
-      Centre and Chair of the W3C Internationalization Tag Set Interest Group. 
-      Phil participates in many industry groups such as the OASIS XLIFF Object 
-      Model and Other Serializations Technical Committee and is lead architect 
-      of the Ocelot and JliffGraphTools open source projects.</para>
-    </personblurb>
-    <affiliation>
-      <jobtitle>CTO</jobtitle>
-      <orgname>Vistatec</orgname>
-    </affiliation>
-  </author>
-  <author>
-    <personname>Robert van Engelen</personname>
-    <email>engelen@genivia.com</email>
-    <uri>URI</uri>
-    <personblurb>
-      <para><emphasis role="bold">Robert van Engelen</emphasis> BLURB.</para>
-    </personblurb>
-    <affiliation>
-      <jobtitle>CTO</jobtitle>
-      <orgname>Genivia</orgname>
-    </affiliation>
-  </author>
-  
-
-<keywordset>
-  <keyword>inline data model</keyword>
-  <keyword>UML</keyword>
-  <keyword>JLIFF</keyword>
-  <keyword>JSON</keyword>
-  <keyword>JSON-LD</keyword>
-  <keyword>W3C ITS</keyword>
-<keyword>XLIFF</keyword>
-<keyword>Internationalization</keyword>
-  <keyword>I18n</keyword>
-  <keyword>Localization</keyword>
-  <keyword>L10n</keyword>
-  <keyword>metadata</keyword>
-  <keyword>namespaces</keyword>
-  <keyword>mapping</keyword>
-  <keyword>roundtrip</keyword>
-  <keyword>lifecycle</keyword>
-  <keyword>multilingual content</keyword>
-  
-</keywordset>
-
-<abstract>
+    <author>
+      <personname>Phil Ritchie</personname>
+      <email>phil.ritchie@vistatec.com</email>
+      <uri>http://www.vistatec.com</uri>
+      <uri>http://blog.phil-ritchie.net/idiomatic-prose</uri>
+      <personblurb>
+        <para><emphasis role="bold">Phil Ritchie</emphasis>is Chief Technology Officer at Vistatec,
+          a Dublin headquartered Language Service Provider where he directs all Research,
+          Development and Process Innovation activities. He is a founding industrial partner of the
+          ADAPT Research Centre and Chair of the W3C Internationalization Tag Set Interest Group.
+          Phil participates in many industry groups such as the OASIS XLIFF Object Model and Other
+          Serializations Technical Committee and is lead architect of the Ocelot and JliffGraphTools
+          open source projects.</para>
+      </personblurb>
+      <affiliation>
+        <jobtitle>CTO</jobtitle>
+        <orgname>Vistatec</orgname>
+      </affiliation>
+    </author>
+    <author>
+      <personname>Robert van Engelen</personname>
+      <email>engelen@genivia.com</email>
+      <uri>URI</uri>
+      <personblurb>
+        <para><emphasis role="bold">Robert van Engelen</emphasis> BLURB.</para>
+      </personblurb>
+      <affiliation>
+        <jobtitle>CTO</jobtitle>
+        <orgname>Genivia</orgname>
+      </affiliation>
+    </author>
+    <keywordset>
+      <keyword>inline data model</keyword>
+      <keyword>UML</keyword>
+      <keyword>JLIFF</keyword>
+      <keyword>JSON</keyword>
+      <keyword>JSON-LD</keyword>
+      <keyword>W3C ITS</keyword>
+      <keyword>XLIFF</keyword>
+      <keyword>Internationalization</keyword>
+      <keyword>I18n</keyword>
+      <keyword>Localization</keyword>
+      <keyword>L10n</keyword>
+      <keyword>metadata</keyword>
+      <keyword>multi-namespace</keyword>
+      <keyword>namespaces</keyword>
+      <keyword>mapping</keyword>
+      <keyword>roundtrip</keyword>
+      <keyword>lifecycle</keyword>
+      <keyword>multilingual content</keyword>
+    </keywordset>
+    <abstract>
       <para><emphasis>JLIFF</emphasis>
         <citation>JLIFF</citation> is the JSON serialization of XLIFF. Currently JLIFF only exists
         as a reasonably stable JSON schema that is very close to being a full bidirectional mapping
@@ -103,10 +97,10 @@
         described in this paper. While we do explain about the internationalization (I18n) and
         localization (L10n) business specifics, we are also striving to provide general takeaways
         useful when porting XML based vocabularies into semantically and behaviorally interoperable
-        JSON serializations.    </para>
-  <para/>
-</abstract>
-</info>
+        JSON serializations. </para>
+      <para/>
+    </abstract>
+  </info>
 
 <para>This research was conducted at the ADAPT Centre, Trinity College Dublin, Ireland.</para>
 
@@ -243,6 +237,14 @@ urn:oasis:names:tc:xliff:itsm:2.1</programlisting>
         <programlisting>urn:oasis:names:tc:xliff:changetracking:2.0</programlisting>
       </example>
     </para>
+    <para>Apart from the 11 listed namespaces, both XLIFF Core and the W3C ITS namespace reuse the
+        <code>xml</code> namespace. This is still not all namespaces that you can encounter in an
+      XLIFF Document. XLIFF 2 Core defines 4 element extension points (<code>&lt;file></code>,
+        <code>&lt;skeleton></code>, <code>&lt;group></code>, and <code>&lt;unit></code>) and  4 more
+      attribute extension points (<code>&lt;xliff></code>, <code>&lt;note></code>,
+        <code>&lt;mrk></code>, and <code>&lt;sm></code>). Most of XLIFF's modules are also
+      extensible by elements or by attributes. We will explain in the JLIFF design section how we
+      dealt with the inherent multi-namespace character of XLIFF.</para>
     <para>The easiest metadata category to explain the idea of ITS is
         <firstterm>Translate</firstterm>; this is simply a boolean flag that can be used to indicate
       Translatability or not in source content.</para>
