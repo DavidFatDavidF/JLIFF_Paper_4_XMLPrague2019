@@ -339,10 +339,67 @@
   
 
 <section xml:id="datacats">
-    <title>The abstract Localization Interchange Object Model (LIOM)</title>
-    <section xml:id="extractioncats">
-      <title>TBW</title>
-      <para>TBW</para>
+    <title>The abstract Localization Interchange Object Model (LIOM) </title>
+    <section xml:id="smdatacats">
+      <title>The Core Structure</title>
+      <para>This <link xl:href="LIOM">figure</link> is a UML class diagram rendering of the abstract
+        object model behind XLIFF 2 Core and hence also JLIFF core.</para>
+      <para>
+        <figure xml:id="LIOM">
+          <title>The abstract Localization Interchange Object Model - LIOM</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref='images/Model_LIFF_Class_Diagram.PNG'/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+        
+      </para>
+      <para>The above class diagram shows that a LIOM has three options of logical roots. The
+        original XML serialization, i.e. XLIFF 2, can only use the top level root object according
+        to its own grammar. On the other hand, the abstract object model caters for use cases where
+        LIOM fragments could be exchanged. Such scenarios include real time unit exchnage between
+        translation tools such as between a <firstterm>Translation Management System
+          (TMS)</firstterm> and a translation or review workbench (browser based or standalone), a
+        TMS and a <firstterm>Machine Translation (MT)</firstterm> engine, two different TMSes, and
+        so on.</para>
+      <para>Based on the above, a LIOM instance can represent a number of <firstterm>source
+          files</firstterm> intended for Localization. The top level wrapper in the XML
+        serialization is the <code>&lt;xliff></code> element, top level object in the JSON
+        serialization is <code>jliff</code>.</para>
+      <para>
+        <example>
+          <title>XLIFF top level element</title>
+          <programlisting>&lt;xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" 
+xmlns:uext1="http://example.com/userextension/1.0"
+xmlns:uext2="http://example.com/userextension/2.0"
+version="2.1" srcLang="en" trgLang="fr">
+  &lt;file … >
+    &lt;group … >
+      /arbitrary group depth including 0/
+      &lt;unit … >
+      [ … /truncated payload structure / … ]
+      &lt;/unit>
+    &lt;/group>
+  &lt;file>
+&lt;/xliff></programlisting>
+        </example>
+      </para>
+      <para>
+        <example>
+          <title>JLIFF top level object</title>
+          <programlisting>{
+    "jliff": "2.1",
+    "@context": {
+      "uext1": "http://example.com/userextension/1.0",
+      "uext2": "http://example.com/userextension/2.0"
+    },
+    "srcLang": "en",
+    "trgLang": "fr",
+    "files | subitems | subunits": [ … /truncated payload structure / … ]      
+}</programlisting>
+        </example>
+      </para>
       <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
       <para><link xl:href="http://www.w3.org/TR/its20/#language-information">Language
           Information</link> uses the <citation>BCP47</citation> data model via
@@ -368,11 +425,7 @@
       <para><link xl:href="http://www.w3.org/TR/its20/#idvalue">ID Value</link> indicates via
           <code>xml:id</code> a globally unique identifier that should be preserved during
         translation and localization transformations mainly for the purposes of reimport of target
-        content to all the right places in the native environment. </para>
-    </section>
-    <section xml:id="smdatacats">
-      <title>TBW</title>
-      <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
+        content to all the right places in the native environment.</para>
       <para><link xl:href="http://www.w3.org/TR/its20/#terminology">Terminology</link> can simply
         indicate words or multi-word expressions as terms or non-terms. This is how the category
         worked in ITS 1.0. In ITS 2.0, Terminology can be more useful by pointing to definitions or
