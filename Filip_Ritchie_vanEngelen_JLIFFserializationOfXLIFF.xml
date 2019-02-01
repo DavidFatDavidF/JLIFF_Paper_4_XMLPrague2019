@@ -60,11 +60,9 @@
           where he directs all Research and Development. He is founding partner of Genivia (founded
           2003) and a tenured full Professor of Computer Science at the Florida State University.
           Robert specializes in Web protocols and networking technologies, compilers and software
-          development tools, and machine learning. He served as Associate Editor of IEEE
-          Transactions on Services Computing and has authored over 70 peer-reviewed publications.
-          Robert received his Ph.D. in Computer Science in 1998 from Leiden University, the
-          Netherlands, and a Master's degree in Computer Science in 1994 from Utrecht University,
-          the Netherlands.</para>
+          development tools, and machine learning. Robert received his Ph.D. in Computer Science in
+          1998 from Leiden University, the Netherlands, and a Master's degree in Computer Science in
+          1994 from Utrecht University, the Netherlands.</para>
       </personblurb>
       <affiliation>
         <jobtitle>CEO</jobtitle>
@@ -709,7 +707,11 @@ version="2.1" srcLang="en" trgLang="fr">
       decided that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and         <code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to <code>&lt;sc/></code>
  and <code>&lt;ec/></code>      pairs.</para></listitem>
   </orderedlist>
-
+<para>These mapping decisions were verified against the LIOM and XLIFF 2 while developing the
+      JSON schema for JLIFF 2. In addition, to validate the approach several XLIFF examples were
+      translated to JLIFF and validated by the JLIFF JSON schema. A reference implementation is
+      developed for lossless translation of XLIFF into JLIFF, except for support for
+        <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements.</para>
 </section>
 
 <section>
