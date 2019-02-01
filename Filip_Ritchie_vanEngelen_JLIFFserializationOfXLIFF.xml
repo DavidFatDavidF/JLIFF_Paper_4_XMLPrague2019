@@ -524,7 +524,8 @@ version="2.1" srcLang="en" trgLang="fr">
           module is extensible by the Metadata Module and by custom extensions.</para>
         <para>Glossary Module is designed to provide locally relevant Terminology matches. But can
           be also used <emphasis>vice versa</emphasis> to store terminology identified by human or
-          machine agents during the roundtrip.</para>
+          machine agents during the roundtrip. A mapping of XLIFF Core + Glossary Module to and form
+          TBX Basic has been defined in <citation>XLIFFglsTBXBasic</citation>.</para>
       </section>
       <section xml:id="LIOMModulesITS">
         <title>The ITS Module</title>
@@ -866,9 +867,16 @@ version="2.1" srcLang="en" trgLang="fr">
           xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/csprd02/xliff-core-v2.1-csprd02.html"
         /></bibliomisc>
     </bibliomixed>
-    <bibliomixed><abbrev>XLIFFEMBP</abbrev>D. Filip and J. Husarčík, Eds., <title>XLIFF 2 Extraction and
+
+  <bibliomixed><abbrev>XLIFFEMBP</abbrev>D. Filip and J. Husarčík, Eds., <title>XLIFF 2 Extraction and
         Merging Best Practice, Version 1.0</title>. Globalization and Localization Association
       (GALA) TAPICC, 2018.</bibliomixed>
+  
+  <bibliomixed><abbrev>XLIFFglsTBXBasic</abbrev> J. Hayes, S. E. Wright, D. Filip, A. Melby, and
+      D. Reineke, <title>Interoperability of XLIFF 2.0 Glossary Module and TBX-Basic</title>,
+        <emphasis role="italic">Localisation Focus</emphasis>, vol. 14, no. 1, pp. 43–50, Apr. 2015.
+      <bibliomisc><link xl:href="https://www.localisation.ie/resources/publications/2015/260">https://www.localisation.ie/resources/publications/2015/260</link></bibliomisc></bibliomixed>
+  
   <bibliomixed><abbrev>XLIFFRender</abbrev>D. Filip and J. Husarčík, <title>Modification and Rendering in Context of a Comprehensive Standards Based L10n Architecture</title>, Proceedings ASLING Translating and the Computer, vol. 40, pp. 95–112, Nov. 2018. <bibliomisc><link xl:href="https://www.asling.org/tc40/wp-content/uploads/TC40-Proceedings.pdf"></link></bibliomisc>
   </bibliomixed>
   
