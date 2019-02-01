@@ -67,7 +67,7 @@
           the Netherlands.</para>
       </personblurb>
       <affiliation>
-        <jobtitle>CTO</jobtitle>
+        <jobtitle>CEO</jobtitle>
         <orgname>Genivia</orgname>
       </affiliation>
     </author>
@@ -178,11 +178,11 @@
 <section xml:id="layoftheland">
     <title>Lay of the land</title>
     <para>The foundational Internationalization Standard is of course <citation>Unicode</citation>
-      along with some related Unicode Annexes. But in this paper we are taking the Unicode support
-      for granted and will be looking at the domain standards W3C ITS and OASIS XLIFF along with its
-      upcoming JSON serialization JLIFF that are the open standards relevant for covering the
-      industry process areas outlined in the second part of the <link linkend="intro"
-        >Introduction</link>.</para>
+      along with some related Unicode Annexes (such as <citation>UAX9</citation>). However, in this
+      paper we are taking the Unicode support for granted and will be looking at the domain
+      standards W3C ITS and OASIS XLIFF along with its upcoming JSON serialization JLIFF that are
+      the open standards relevant for covering the industry process areas outlined in the second
+      part of the <link linkend="intro">Introduction</link>.</para>
     <para>For a long time, XML has been another unchallenged foundation of the multilingual content
       interoperability and hence practically all Localization and Internationalization standards
       started as or became at some point XML vocabularies. Paramount industry wisdom is stored in
@@ -194,11 +194,12 @@
       again ITS 1.0 was only specifically injectable into XML vocabularies.</para>
     <para>
       <citation>ITS20</citation> provides local and global methods for metadata storage not only in
-      XML but also in HTML 5, it also looked at mapping into non-XML formats such as
-        <citation>NIF</citation>, albeit in a non-normative way. Because native HTML does not
+      XML but also in <citation>HTML5</citation>, it also looked at mapping into non-XML formats
+      such as <citation>NIF</citation>, albeit in a non-normative way. Because native HTML does not
       support the notion of namespaces, ITS 2.0 has to use attributes that are prefixed with the
-      string <code>its-</code> for the purpose of being recognized as an HTML 5 module.
-        <citation>ITS20</citation> also introduced many new metadata categories compared with
+      string <code>its-</code> for the purpose of being recognized as an HTML 5 module.  In JLIFF,
+      we are using <code>its_</code> to indicate the ITS Module data.</para>
+    <para><citation>ITS20</citation> also introduced many new metadata categories compared with
         <citation>ITS10</citation>. ITS 1.0 only looked at metadata in source content that would
       somehow help inform the Internationalization and Localization processes down the line. ITS 2.0
       brought brand new and sometimes complex metadata categories that contain information produced
@@ -207,9 +208,9 @@
       led to a non-normative mapping of <citation>ITS20</citation> to <citation>XLIFF12</citation>
       and to <citation>XLIFF20</citation>. Thus ITS 2.0 became a very useful extension to XLIFF. And
       here comes the modular design that allows to turn useful extensions into modules as part of a
-      dot-release. Not only module data is better protected but also describing as part of the
-      broader spec gives an opportunity to tie lots of loose ends that are at play when using only a
-      partially formalized extension mapping.</para>
+      dot-release. Not only module data is better protected but also describing a data model
+      addition as part of the broader spec gives an opportunity to tie lots of loose ends that are
+      at play when using only a partially formalized extension mapping.</para>
     <para>One of the main reasons why <citation>XLIFF20</citation> is not backwards compatible with
         <citation>XLIFF12</citation> is that the OASIS XLIFF TC and the wider stakeholder community
       wanted to create XLIFF 2 with a modularized data model. <citation>XLIFF20</citation> has a
@@ -228,34 +229,34 @@
     <para>So in a nutshell the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
       demonstrated as the two overlapping listings of namespaces.<example>
         <title>Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0</title>
-        <programlisting>urn:oasis:names:tc:xliff:document:2.0
+        <programlisting>urn:oasis:names:tc:xliff:document:2.0            &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#core">Core</link> --> 
 
-urn:oasis:names:tc:xliff:matches:2.0
+urn:oasis:names:tc:xliff:matches:2.0             &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#candidates">Translation Candidates Module</link> -->
 
-urn:oasis:names:tc:xliff:glossary:2.0
+urn:oasis:names:tc:xliff:glossary:2.0            &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#glossary-module">Glossary Module</link> -->
 
-urn:oasis:names:tc:xliff:fs:2.0
+urn:oasis:names:tc:xliff:fs:2.0                  &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#fs-mod">Format Style Module</link> -->
 
-urn:oasis:names:tc:xliff:metadata:2.0
+urn:oasis:names:tc:xliff:metadata:2.0            &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#metadata_module">Metadata Module</link> -->
 
-urn:oasis:names:tc:xliff:resourcedata:2.0
+urn:oasis:names:tc:xliff:resourcedata:2.0        &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#resourceData_module">Resource Data Module</link> -->
 
-urn:oasis:names:tc:xliff:sizerestriction:2.0
+urn:oasis:names:tc:xliff:sizerestriction:2.0     &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#size_restriction_module">Size and Length Restriction Module</link> -->
 
-urn:oasis:names:tc:xliff:validation:2.0</programlisting>
+urn:oasis:names:tc:xliff:validation:2.0          &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#validation_module">Validation Module</link> --></programlisting>
       </example></para>
     <para>
       <example>
         <title>Namespaces that appear only in XLIFF 2.1</title>
-        <programlisting>http://www.w3.org/2005/11/its
+        <programlisting>http://www.w3.org/2005/11/its                    &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#ITS-module">ITS Module</link> -->
 
-urn:oasis:names:tc:xliff:itsm:2.1</programlisting>
+urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#ITS-module">ITS Module</link> --></programlisting>
       </example>
     </para>
     <para>
       <example>
         <title>Namespaces that appear only in XLIFF 2.0</title>
-        <programlisting>urn:oasis:names:tc:xliff:changetracking:2.0</programlisting>
+        <programlisting>urn:oasis:names:tc:xliff:changetracking:2.0      &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html#changeTracking_module">Change Tracking Module</link> --></programlisting>
       </example>
     </para>
     <para>Apart from the 11 listed namespaces, both XLIFF Core and the W3C ITS namespace reuse the
