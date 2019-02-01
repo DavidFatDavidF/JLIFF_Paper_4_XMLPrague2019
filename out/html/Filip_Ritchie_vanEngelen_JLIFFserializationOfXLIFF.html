@@ -6,17 +6,17 @@
         as a reasonably stable JSON schema that is very close to being a full bidirectional mapping
         to both XLIFF 2 Versions. <span class="emphasis"><em>XLIFF</em></span> is the XML Localization Interchange
         File Format. The current OASIS Standard version is <span class="emphasis"><em>XLIFF Version 2.1</em></span>
-        [<a class="citation" href="#d5e506"><span class="citation">XLIFF21</span></a>]. The major new features added to [<a class="citation" href="#d5e506"><span class="citation">XLIFF21</span></a>]
+        [<a class="citation" href="#d5e526"><span class="citation">XLIFF21</span></a>]. The major new features added to [<a class="citation" href="#d5e526"><span class="citation">XLIFF21</span></a>]
         compared to <span class="emphasis"><em>XLIFF Version 2. 0</em></span>
-        [<a class="citation" href="#d5e501"><span class="citation">XLIFF20</span></a>] are the native <span class="emphasis"><em>W3C ITS 2.0</em></span>
-        [<a class="citation" href="#d5e467"><span class="citation">ITS20</span></a>] support and the Advanced Validation feature via NVDL and
+        [<a class="citation" href="#d5e521"><span class="citation">XLIFF20</span></a>] are the native <span class="emphasis"><em>W3C ITS 2.0</em></span>
+        [<a class="citation" href="#d5e487"><span class="citation">ITS20</span></a>] support and the Advanced Validation feature via NVDL and
         Schematron. This paper describes how XLIFF was ported to JSON via an abstract object model.
         Challenges and design principles of transforming a multi-namespace business vocabulary into
         JSON while preserving lossless machine to machine interchange between the serializations are
         described in this paper. While we do explain about the <em class="firstterm">Internationalization
           (I18n)</em> and <em class="firstterm">Localization (L10n)</em> business specifics, we
         are also striving to provide general takeaways useful when porting XML based vocabularies
-        into semantically and behaviorally interoperable JSON serializations. </p><p></p></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#intro">Introduction</a></span></dt><dt><span class="section"><a href="#layoftheland">Lay of the land</a></span></dt><dt><span class="section"><a href="#LIOM">The abstract Localization Interchange Object Model (LIOM) </a></span></dt><dd><dl><dt><span class="section"><a href="#LIOMCore">The Core Structure</a></span></dt><dt><span class="section"><a href="#LIOMModules">LIOM Modules</a></span></dt></dl></dd><dt><span class="section"><a href="#d5e351">The design of JLIFF</a></span></dt><dt><span class="section"><a href="#d5e404">Reference Implementation</a></span></dt><dt><span class="section"><a href="#d5e416">Conclusions</a></span></dt><dt><span class="bibliography"><a href="#references">Bibliography</a></span></dt></dl></div><p>This research was conducted at the ADAPT Centre, Trinity College Dublin, Ireland.</p><p>The ADAPT Centre is funded under the SFI (Science Foundation Ireland) Research Centres
+        into semantically and behaviorally interoperable JSON serializations. </p><p></p></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#intro">Introduction</a></span></dt><dt><span class="section"><a href="#layoftheland">Lay of the land</a></span></dt><dt><span class="section"><a href="#LIOM">The abstract Localization Interchange Object Model (LIOM) </a></span></dt><dd><dl><dt><span class="section"><a href="#LIOMCore">The Core Structure</a></span></dt><dt><span class="section"><a href="#LIOMModules">LIOM Modules</a></span></dt></dl></dd><dt><span class="section"><a href="#d5e371">The design of JLIFF</a></span></dt><dt><span class="section"><a href="#d5e424">Reference Implementation</a></span></dt><dt><span class="section"><a href="#d5e436">Discussion and Conclusions</a></span></dt><dt><span class="bibliography"><a href="#references">Bibliography</a></span></dt></dl></div><p>This research was conducted at the ADAPT Centre, Trinity College Dublin, Ireland.</p><p>The ADAPT Centre is funded under the SFI (Science Foundation Ireland) Research Centres
     Programme (Grant 13/RC/2106) and is co-funded under the European Regional Development
     Fund.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>Introduction</h2></div></div></div><p>In this paper and XML Prague presentation, we will explain about
         <span class="emphasis"><em>JLIFF</em></span>
@@ -59,14 +59,14 @@
       parts of the source or native format are <em class="firstterm">Extracted</em> into the Bitext
       format, which has provisions for storing the Translated or Localized target parts in an
       aligned way that allows for efficient and automated processing of content during the
-      Localization roundtrip.</p><p>Our paper presented to XML Prague 2017 [<a class="citation" href="#d5e442"><span class="citation">3</span></a>] made a detailed introduction
-      of XLIFF ([<a class="citation" href="#d5e511"><span class="citation">XLIFF21prd02</span></a>] as the then current predecessor of
-        [<a class="citation" href="#d5e506"><span class="citation">XLIFF21</span></a>] backwards compatible with [<a class="citation" href="#d5e501"><span class="citation">XLIFF20</span></a>]) as the
+      Localization roundtrip.</p><p>Our paper presented to XML Prague 2017 [<a class="citation" href="#d5e462"><span class="citation">3</span></a>] made a detailed introduction
+      of XLIFF ([<a class="citation" href="#d5e531"><span class="citation">XLIFF21prd02</span></a>] as the then current predecessor of
+        [<a class="citation" href="#d5e526"><span class="citation">XLIFF21</span></a>] backwards compatible with [<a class="citation" href="#d5e521"><span class="citation">XLIFF20</span></a>]) as the
       open standard Bitext format used in the Localization industry. This paper describes how the
       complete open transparent bitext capability of XLIFF can be ported to JSON environments using
       the JLIFF format. We also demonstrate that JLIFF and XLIFF can be used interchangeably,
-      effectively allowing to switch between XML and JSON pipelines at will.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layoftheland"></a>Lay of the land</h2></div></div></div><p>The foundational Internationalization Standard is of course [<a class="citation" href="#d5e491"><span class="citation">Unicode</span></a>]
-      along with some related Unicode Annexes (such as [<a class="citation" href="#d5e486"><span class="citation">UAX9</span></a>]). However, in this
+      effectively allowing to switch between XML and JSON pipelines at will.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="layoftheland"></a>Lay of the land</h2></div></div></div><p>The foundational Internationalization Standard is of course [<a class="citation" href="#d5e511"><span class="citation">Unicode</span></a>]
+      along with some related Unicode Annexes (such as [<a class="citation" href="#d5e506"><span class="citation">UAX9</span></a>]). However, in this
       paper we are taking the Unicode support for granted and will be looking at the domain
       standards W3C ITS and OASIS XLIFF along with its upcoming JSON serialization JLIFF that are
       the open standards relevant for covering the industry process areas outlined in the second
@@ -79,25 +79,25 @@
       XML. The simple yet ingenious idea of ITS is to provide a reusable namespace that can be
       injected into existing formats. Although the notion of a namespace is not confined to XML,
       again ITS 1.0 was only specifically injectable into XML vocabularies.</p><p>
-      [<a class="citation" href="#d5e467"><span class="citation">ITS20</span></a>] provides local and global methods for metadata storage not only in
-      XML but also in [<a class="citation" href="#d5e457"><span class="citation">HTML5</span></a>], it also looked at mapping into non-XML formats
-      such as [<a class="citation" href="#d5e481"><span class="citation">NIF</span></a>], albeit in a non-normative way. Because native HTML does not
+      [<a class="citation" href="#d5e487"><span class="citation">ITS20</span></a>] provides local and global methods for metadata storage not only in
+      XML but also in [<a class="citation" href="#d5e477"><span class="citation">HTML5</span></a>], it also looked at mapping into non-XML formats
+      such as [<a class="citation" href="#d5e501"><span class="citation">NIF</span></a>], albeit in a non-normative way. Because native HTML does not
       support the notion of namespaces, ITS 2.0 has to use attributes that are prefixed with the
       string <code class="code">its-</code> for the purpose of being recognized as an HTML 5 module.  In JLIFF,
-      we are using <code class="code">its_</code> to indicate the ITS Module data.</p><p>[<a class="citation" href="#d5e467"><span class="citation">ITS20</span></a>] also introduced many new metadata categories compared with
-        [<a class="citation" href="#d5e462"><span class="citation">ITS10</span></a>]. ITS 1.0 only looked at metadata in source content that would
+      we are using <code class="code">its_</code> to indicate the ITS Module data.</p><p>[<a class="citation" href="#d5e487"><span class="citation">ITS20</span></a>] also introduced many new metadata categories compared with
+        [<a class="citation" href="#d5e482"><span class="citation">ITS10</span></a>]. ITS 1.0 only looked at metadata in source content that would
       somehow help inform the Internationalization and Localization processes down the line. ITS 2.0
       brought brand new and sometimes complex metadata categories that contain information produced
       during the localization processes or during the language service transformations that are
       necessary to produce target content and are typically facilitated by Bitext. This naturally
-      led to a non-normative mapping of [<a class="citation" href="#d5e467"><span class="citation">ITS20</span></a>] to [<a class="citation" href="#d5e496"><span class="citation">XLIFF12</span></a>]
-      and to [<a class="citation" href="#d5e501"><span class="citation">XLIFF20</span></a>]. Thus ITS 2.0 became a very useful extension to XLIFF. And
+      led to a non-normative mapping of [<a class="citation" href="#d5e487"><span class="citation">ITS20</span></a>] to [<a class="citation" href="#d5e516"><span class="citation">XLIFF12</span></a>]
+      and to [<a class="citation" href="#d5e521"><span class="citation">XLIFF20</span></a>]. Thus ITS 2.0 became a very useful extension to XLIFF. And
       here comes the modular design that allows to turn useful extensions into modules as part of a
       dot-release. Not only module data is better protected but also describing a data model
       addition as part of the broader spec gives an opportunity to tie lots of loose ends that are
-      at play when using only a partially formalized extension mapping.</p><p>One of the main reasons why [<a class="citation" href="#d5e501"><span class="citation">XLIFF20</span></a>] is not backwards compatible with
-        [<a class="citation" href="#d5e496"><span class="citation">XLIFF12</span></a>] is that the OASIS XLIFF TC and the wider stakeholder community
-      wanted to create XLIFF 2 with a modularized data model. [<a class="citation" href="#d5e501"><span class="citation">XLIFF20</span></a>] has a
+      at play when using only a partially formalized extension mapping.</p><p>One of the main reasons why [<a class="citation" href="#d5e521"><span class="citation">XLIFF20</span></a>] is not backwards compatible with
+        [<a class="citation" href="#d5e516"><span class="citation">XLIFF12</span></a>] is that the OASIS XLIFF TC and the wider stakeholder community
+      wanted to create XLIFF 2 with a modularized data model. [<a class="citation" href="#d5e521"><span class="citation">XLIFF20</span></a>] has a
       small non-negotiable core but at the same time it brings 8 namespace based modules for
       advanced functionality. The modular and extensible design aims at easy production of "dot"
       revisions or releases of the standard. XLIFF Version 2.0 was intended as the first in the
@@ -107,9 +107,9 @@
         <em class="firstterm">Conformant XLIFF Agents</em> are bound by an absolute prohibition to
       delete module based metadata (MUST NOT), whereas deletion of extension based data is
       discouraged but not prohibited (the SHOULD NOT normative keyword is used, see
-        [<a class="citation" href="#d5e447"><span class="citation">BCP14</span></a>]). The <em class="firstterm">ITS Module</em> is the biggest feature
+        [<a class="citation" href="#d5e467"><span class="citation">BCP14</span></a>]). The <em class="firstterm">ITS Module</em> is the biggest feature
       that was requested by the industry community and approved by the TC for specification as part
-      of [<a class="citation" href="#d5e506"><span class="citation">XLIFF21</span></a>].</p><p>So in a nutshell the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
+      of [<a class="citation" href="#d5e526"><span class="citation">XLIFF21</span></a>].</p><p>So in a nutshell, the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
       demonstrated as the two overlapping listings of namespaces.</p><div class="example"><a name="commonNamespaces"></a><p class="title"><b>Example&nbsp;1.&nbsp;Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0</b></p><div class="example-contents"><pre class="programlisting">urn:oasis:names:tc:xliff:document:2.0            &lt;!-- <a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#core" target="_top">Core</a> --&gt; 
 
 urn:oasis:names:tc:xliff:matches:2.0             &lt;!-- <a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#candidates" target="_top">Translation Candidates Module</a> --&gt;
@@ -199,7 +199,13 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <a class="link" href="h
         &lt;!-- Rules for Translate --&gt;
         &lt;its:translateRule selector="//xlf:*[@translate='no']" translate='no'/&gt;
         &lt;its:translateRule selector="//xlf:*[@translate='yes']" translate='yes'/&gt;
-   &lt;/its:rules&gt;</pre></div></div><br class="example-break"></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="LIOM"></a>The abstract Localization Interchange Object Model (LIOM) </h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="LIOMCore"></a>The Core Structure</h3></div></div></div><p><a class="link" href="LIOMFig" target="_top">This figure</a> is a UML class diagram rendering of the abstract
+   &lt;/its:rules&gt;</pre></div></div><br class="example-break"><p>The above rule will correctly identify all XLIFF nodes that are using the
+        <code class="code">xlf:translate</code> attribute with one important caveat, Translatability annotations
+      on pseudo-spans will be interpreted as empty &lt;sm/&gt; nodes. And pseudo-span Translatability
+      overlaps with Translatability well-formed markup will not be properly interpreted, see
+        [<a class="citation" href="#d5e526"><span class="citation">XLIFF21</span></a>]
+      <a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#translateAnnotation" target="_top">http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#translateAnnotation</a>
+ .</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="LIOM"></a>The abstract Localization Interchange Object Model (LIOM) </h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="LIOMCore"></a>The Core Structure</h3></div></div></div><p><a class="link" href="LIOMFig" target="_top">This figure</a> is a UML class diagram rendering of the abstract
         object model behind XLIFF 2 Core and hence also JLIFF core.</p><p>
         </p><div class="figure"><a name="LIOMFig"></a><p class="title"><b>Figure&nbsp;1.&nbsp;The abstract Localization Interchange Object Model - LIOM</b></p><div class="figure-contents"><div class="mediaobject"><img src="../../images/Model_LIFF_Class_Diagram.PNG" alt="The abstract Localization Interchange Object Model - LIOM"></div></div></div><p><br class="figure-break">
       </p><p>The above can be described in a natural language as follows:</p><p>A <em class="firstterm">LIOM</em> instance contains at least one file. Each file can contain
@@ -217,9 +223,16 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <a class="link" href="h
         the structural <code class="code">&lt;source&gt;</code>, <code class="code">&lt;target&gt;</code>,
         <code class="code">&lt;segment&gt;</code>, and <code class="code">&lt;ignorable&gt;</code> tags. The <code class="code">&lt;unit&gt;</code>
         tag separates the upper clean XML well-formed structure from the transient structure of
-        segments where "non-well-formed" pseudo-spans formed by related empty tags
-          (<code class="code">&lt;sc/&gt;</code> and <code class="code">&lt;ec/&gt;</code>, as well as <code class="code">&lt;sm/&gt;</code> and
-          <code class="code">&lt;em/&gt;</code> pairs) need to be recognized and processed by XLIFF Agents.</p><p>The above class diagram shows that a LIOM has four options of logical roots. The
+        segments where "non-well-formed" pseudo-spans formed by related empty tags (<code class="code">&lt;sc
+          id="1"/&gt;</code> and <code class="code">&lt;ec startRef="1"/&gt;</code>, as well as <code class="code">&lt;sm
+          id="2"/&gt;</code> and <code class="code">&lt;em startRef="2"/&gt;</code> pairs) need to be recognized and
+        processed by XLIFF Agents. See [<a class="citation" href="#d5e526"><span class="citation">XLIFF21</span></a>]
+        <a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#spanningcodeusage" target="_top">Spanning Code Usage</a> ("<span class="emphasis"><em>Agents</em></span> MUST be able to handle any of
+        the above two types of inline code representation") or <a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#pseudo-spanWarning" target="_top">Pseudo-span Warning</a>. Since the equivalence of well-formed versions of the spanning
+        codes <code class="code">&lt;pc&gt;</code> and markers <code class="code">&lt;mrk&gt;</code> with the above pseudo-spans is
+        defined and described in XLIFF 2 itself, there is no need to include the well-formed
+        versions of the inline tags in the abstract LIOM and non-XML serializations including JLIFF
+        are free to use a fully linear inline data model.</p><p>The above class diagram shows that a LIOM has four options of logical roots. The
         original XML serialization, i.e. XLIFF 2, can only use the top level root object according
         to its own grammar. On the other hand, the abstract object model caters for use cases where
         LIOM fragments could be exchanged. Such scenarios include real time unit exchange between
@@ -231,7 +244,7 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <a class="link" href="h
         serialization is the <code class="code">&lt;xliff&gt;</code> element, the top level object in the JSON
         serialization is an anonymous to level object with the required <code class="code">jliff</code>
         property.</p><p>
-        </p><div class="example"><a name="d5e253"></a><p class="title"><b>Example&nbsp;12.&nbsp;XLIFF top level element</b></p><div class="example-contents"><pre class="programlisting">&lt;xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" 
+        </p><div class="example"><a name="XLIFFTop"></a><p class="title"><b>Example&nbsp;12.&nbsp;XLIFF top level element</b></p><div class="example-contents"><pre class="programlisting">&lt;xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" 
 xmlns:uext1="http://example.com/userextension/1.0"
 xmlns:uext2="http://example.com/userextension/2.0"
 version="2.1" srcLang="en" trgLang="fr"&gt;
@@ -245,7 +258,7 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
   &lt;file&gt;
 &lt;/xliff&gt;</pre></div></div><p><br class="example-break">
       </p><p>
-        </p><div class="example"><a name="d5e257"></a><p class="title"><b>Example&nbsp;13.&nbsp;JLIFF anonymous top level object </b></p><div class="example-contents"><pre class="programlisting">{
+        </p><div class="example"><a name="JLIFFTop"></a><p class="title"><b>Example&nbsp;13.&nbsp;JLIFF anonymous top level object </b></p><div class="example-contents"><pre class="programlisting">{
     "jliff": "2.1",
     "@context": {
       "uext1": "http://example.com/userextension/1.0",
@@ -253,18 +266,21 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
     },
     "srcLang": "en",
     "trgLang": "fr",
-    "files | subitems | subunits": [ &#8230; /truncated payload structure / &#8230; ]      
+    "files | subfiles | sugbroups | subunits": [ &#8230; /truncated payload structure / &#8230; ]      
 }</pre></div></div><p><br class="example-break">
       </p><p>Comparing the two examples above, it is clear that XLIFF in its original XML
         serialization doesn't have another legal option but to represent the whole project structure
         of source files. JLIFF has been conceived from the beginning as the JSON Localization
           <span class="emphasis"><em>Fragment</em></span> Format, so that top level JLIFF object (<code class="code">jliff</code>)
         can wrap an array of files (within the <code class="code">files</code> object), an array of groups or
-        units (within the <code class="code">subitems</code> object), or an array of sub-units (within the
-          <code class="code">subunits</code> object).</p><p>Also worth noting that the JLIFF top level object is anonymous with a required property
+        units (within the <code class="code">subfiles</code> or the <code class="code">subgroups</code> object), or an array
+        of sub-units (within the <code class="code">subunits</code> object). Since the data model of a subfile
+        and a subgroup is identical, <code class="code">subfiles</code> and <code class="code">subgroups</code> are instances
+        of a common JSON schema type named <code class="code">subitems</code>. The <code class="code">subitem</code> type
+        object simply holds an array of anonymous group or unit objects.</p><p>Also worth noting that the JLIFF top level object is anonymous with a required property
           <code class="code">jliff</code>. The <code class="code">jliff</code> property values are restricted at the moment to
           <code class="code">2.1</code> or <code class="code">2.0</code>. The context property is optional as it is only
-        required to specify [<a class="citation" href="#d5e472"><span class="citation">JSON-LD</span></a>] context for extensions if present. This is
+        required to specify [<a class="citation" href="#d5e492"><span class="citation">JSON-LD</span></a>] context for extensions if present. This is
         a workaround to declaring the same extensions' namespaces in the XLIFF top level
         example.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="LIOMModules"></a>LIOM Modules</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="LIOMModules2.0"></a>LIOM modules originating in XLIFF 2.0</h4></div></div></div><p>XLIFF 2.0 defined 8 namespace based modules, from which 7 survived to XLIFF 2.1, see the
             <a class="link" href="#commonNamespaces" title="Example&nbsp;1.&nbsp;Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0">namespaces listing</a> above. We won't be dealing
@@ -272,8 +288,8 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
           attributes <code class="code">fs</code> and <code class="code">subFs</code>. Obviously this very easy to express
           both in the abstract LIOM and in the JLIFF serialization. The <code class="code">subFs</code> property
           is only allowed on objects where <code class="code">fs</code> has been specified. At the same time
-            <code class="code">fs</code> values are restricted to a subset (see [<a class="citation" href="#d5e506"><span class="citation">XLIFF21</span></a>]
-          <a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#d0e13131" target="_top">http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#d0e13131</a>) of [<a class="citation" href="#d5e457"><span class="citation">HTML5</span></a>] tag names. While the Format Style Module only provides 2
+            <code class="code">fs</code> values are restricted to a subset (see [<a class="citation" href="#d5e526"><span class="citation">XLIFF21</span></a>]
+          <a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#d0e13131" target="_top">http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#d0e13131</a>) of [<a class="citation" href="#d5e477"><span class="citation">HTML5</span></a>] tag names. While the Format Style Module only provides 2
           properties, it is rather far reaching as these are allowed on most structural and inline
           elements of XLIFF Core. Information provided through fs and subFs is intended to allow for
           simple transformations to create previews. Previews are extremely important to provide
@@ -296,8 +312,19 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
           module is extensible by the Metadata Module and by custom extensions.</p><p>Glossary Module is designed to provide locally relevant Terminology matches. But can
           be also used <span class="emphasis"><em>vice versa</em></span> to store terminology identified by human or
           machine agents during the roundtrip. A mapping of XLIFF Core + Glossary Module to and form
-          TBX Basic has been defined in [<a class="citation" href="#d5e519"><span class="citation">XLIFFglsTBXBasic</span></a>].</p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="LIOMModulesITS"></a>The ITS Module</h4></div></div></div><p>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</p><p><a class="link" href="http://www.w3.org/TR/its20/#language-information" target="_top">Language
-          Information</a> uses the [<a class="citation" href="#d5e452"><span class="citation">BCP47</span></a>] data model via
+          TBX Basic has been defined in [<a class="citation" href="#d5e539"><span class="citation">XLIFFglsTBXBasic</span></a>].</p><p>The Metadata Module is perhaps the most suitable for being ported to JSON and other
+          serialization methods. While a module that in fact strictly protects it's content, it's in
+          fact an extensibility mechanism for implementers who don't want to extend via their own
+          namespace based extensions. The metada structure is optionally recursive and is allowed on
+          all XLIFF Core static structural elements (<code class="code">file</code>, <code class="code">group</code>,
+            <code class="code">unit</code>). It doesn't specify a referencing mechanism. It is simply an
+          optionally hierarchically structured and locally stored set of key-value pairs to hold
+          custom metadata. Because the data strusture is restricted to key-value pairs it provides
+          at least some limited interoperability for the custom data as all implementers should be
+          capable of displaying structural elements related key-value pairs data. Each Metadata
+          Module object (or element) has an optional id property that allows for addressing from
+          outside the module.</p><p></p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="LIOMModulesITS"></a>The ITS Module</h4></div></div></div><p>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</p><p><a class="link" href="http://www.w3.org/TR/its20/#language-information" target="_top">Language
+          Information</a> uses the [<a class="citation" href="#d5e472"><span class="citation">BCP47</span></a>] data model via
           <code class="code">xml:lang</code> to indicate the natural language of content. This is obviously very
         useful in case you want to source translations or even just render the content with proper
         locale specifics.</p><p><a class="link" href="http://www.w3.org/TR/its20/#directionality" target="_top">Directionality</a> has
@@ -337,7 +364,7 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
         subject matter review in case the domain was indicated as legal. Although ITS data
         categories are defined independently and don't have implementation dependencies, Domain
         information is well suited for usage together with the Terminology and Text Analysis
-        datacats. </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e319"></a>TBW</h4></div></div></div><p>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</p><p>It might seem that this type of metadata is completely new in [<span class="citation">ITS
+        datacats. </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d5e339"></a>TBW</h4></div></div></div><p>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</p><p>It might seem that this type of metadata is completely new in [<span class="citation">ITS
           2.0</span>], since [<span class="citation">ITS 1.0</span>] concentrated almost exclusively on
         source metadata. However, as mentioned above, Terminology - that was present in already in
         ITS 1.0 - can be injected at any point and is not confined to source. Also Directionality is
@@ -387,7 +414,7 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
         delimited pseudo-spans in the first place. </p><p>Principal reasons to form pseudospans include the following requirements: 1) capability to
       represent non-XML content, 2) need for overlapping annotations, 3) capability to represent
       annotations overlapping with formatting spans as well as 4) annotations broken by segmentation
-      (which has to be represented as well formed structural albeit transient nodes).</p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e351"></a>The design of JLIFF</h2></div></div></div><p>The design of JLIFF follows the design of XLIFF 2 closely. As with XLIFF 2, the JLIFF 2
+      (which has to be represented as well formed structural albeit transient nodes).</p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e371"></a>The design of JLIFF</h2></div></div></div><p>The design of JLIFF follows the design of XLIFF 2 closely. As with XLIFF 2, the JLIFF 2
       Core is the abstract Localization Interchange Object Model - LIOM. One of the primary goals of
       JLIFF 2 is compatibility with XLIFF 2. While JLIFF is structurally different compared to XLIFF
       2 due to the much simpler JSON representation format, compatibility is made possible through
@@ -423,7 +450,7 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
       JSON schema for JLIFF 2. In addition, to validate the approach several XLIFF examples were
       translated to JLIFF and validated by the JLIFF JSON schema. A reference implementation is
       developed for lossless translation of XLIFF into JLIFF, except for support for
-        <code class="code">&lt;pc/&gt;</code> and <code class="code">&lt;mrk/&gt;</code> elements.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e404"></a>Reference Implementation</h2></div></div></div><p>It was an early goal to work on a concrete implementation of JLIFF in parallel to the
+        <code class="code">&lt;pc/&gt;</code> and <code class="code">&lt;mrk/&gt;</code> elements.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e424"></a>Reference Implementation</h2></div></div></div><p>It was an early goal to work on a concrete implementation of JLIFF in parallel to the
       development of the schema. It would give us an early opportunity to find and work through any
       design flaws or limitations. Fortunately, the [<span class="citation">JliffGraphTools</span>]  (JGT)
       reference implementation has been open source since early on.</p><p>It was a 
@@ -441,7 +468,7 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
       approach taken in the [<span class="citation">Okapi Framework</span>] XLIFF library. That is inline
       markup tags are converted to coded text which uses characters from the private use area of
       Unicode to delimit inline markup tags. (see
-      http://okapiframework.org/devguide/gettingstarted.html#textUnits).</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e416"></a>Conclusions</h2></div></div></div><p>In the above we tried to show how we ported into JSON XLIFF 2, a complex business
+      http://okapiframework.org/devguide/gettingstarted.html#textUnits).</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e436"></a>Discussion and Conclusions</h2></div></div></div><p>In the above we tried to show how we ported into JSON XLIFF 2, a complex business
       vocabulary from the area of Translation and Localization. While the paper deals in detail only
       with XLIFF and JLIFF, we believe that important topics were covered that will be useful for
       designer who will endeavor porting their own specialized multi-namespace business vocabularies
@@ -458,7 +485,7 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
       sure that all inline data is normalized and set to <code class="code">preserve</code> in your XML data.
       JSON data types are much poorer than XML datatyes, nevertheless, you can make up for this with
       relative ease with the usage of regular expression patterns in your JSON schema. For
-      instance</p><div class="example"><a name="d5e426"></a><p class="title"><b>Example&nbsp;14.&nbsp;NCName pattern in JSON schema</b></p><div class="example-contents"><pre class="programlisting">"NCName": {
+      instance</p><div class="example"><a name="d5e446"></a><p class="title"><b>Example&nbsp;14.&nbsp;NCName pattern in JSON schema</b></p><div class="example-contents"><pre class="programlisting">"NCName": {
       "description": "XSD NCName type for xml:id interoperability",
       "type": "string",
       "pattern": "^[_A-Za-z][-._A-Za-z0-9]*$"
@@ -471,55 +498,55 @@ version="2.1" srcLang="en" trgLang="fr"&gt;
       only for extensions. We decided to use an arbitrary "_" (underscore) prefix separator to make
       the XLIFF modules human discernable. There goes the disadvantage of losing the modularity of
       XLIFF modules in JLIFF, yet we felt that JSON-LD-coding of each of the modules data would be
-      very oblique and heavyweight with minor benefits to outweigh the drawbacks.</p></div><div class="bibliography"><div class="titlepage"><div><div><h2 class="title"><a name="references"></a>Bibliography</h2></div></div></div><div class="bibliomixed"><a name="d5e432"></a><p class="bibliomixed">[<abbr class="abbrev">1</abbr>]  S. Saadatfar and D. Filip, <span class="title">Advanced Validation Techniques
+      very oblique and heavyweight with minor benefits to outweigh the drawbacks.</p></div><div class="bibliography"><div class="titlepage"><div><div><h2 class="title"><a name="references"></a>Bibliography</h2></div></div></div><div class="bibliomixed"><a name="d5e452"></a><p class="bibliomixed">[<abbr class="abbrev">1</abbr>]  S. Saadatfar and D. Filip, <span class="title">Advanced Validation Techniques
         for XLIFF 2</span>. in Localisation Focus, vol. 14, no. 1, pp. 43-50, April 2015.
     <span class="bibliomisc"><a class="link" href="http://www.localisation.ie/locfocus/issues/14/1" target="_top">http://www.localisation.ie/locfocus/issues/14/1</a></span>
-    </p></div><div class="bibliomixed"><a name="d5e437"></a><p class="bibliomixed">[<abbr class="abbrev">2</abbr>]  S. Saadatfar and D. Filip, <span class="title">Best Practice for DSDL-based
+    </p></div><div class="bibliomixed"><a name="d5e457"></a><p class="bibliomixed">[<abbr class="abbrev">2</abbr>]  S. Saadatfar and D. Filip, <span class="title">Best Practice for DSDL-based
         Validation</span>. in XML London 2016 Conference Proceedings, May 2016. <span class="bibliomisc"><a class="link" href="https://xmllondon.com/2016/xmllondon-2016-proceedings.pdf#page=64" target="_top">https://xmllondon.com/2016/xmllondon-2016-proceedings.pdf#page=64</a>
-      </span></p></div><div class="bibliomixed"><a name="d5e442"></a><p class="bibliomixed">[<abbr class="abbrev">3</abbr>]  D. Filip, <span class="title">W3C ITS 2.0 in OASIS XLIFF 2.1</span>, in XML
-    Prague 2017 - Conference Proceedings, Prague, 2017, vol. 2017, pp. 55&#8211;71. <span class="bibliomisc"><a class="link" href="http://archive.xmlprague.cz/2017/files/xmlprague-2017-proceedings.pdf#page=67" target="_top">http://archive.xmlprague.cz/2017/files/xmlprague-2017-proceedings.pdf#page=67</a></span></p></div><div class="bibliomixed"><a name="d5e447"></a><p class="bibliomixed">[<abbr class="abbrev">BCP14</abbr>]  S. Bradner and B. Leiba, Eds., <span class="title">Key words for use in
+      </span></p></div><div class="bibliomixed"><a name="d5e462"></a><p class="bibliomixed">[<abbr class="abbrev">3</abbr>]  D. Filip, <span class="title">W3C ITS 2.0 in OASIS XLIFF 2.1</span>, in XML
+    Prague 2017 - Conference Proceedings, Prague, 2017, vol. 2017, pp. 55&#8211;71. <span class="bibliomisc"><a class="link" href="http://archive.xmlprague.cz/2017/files/xmlprague-2017-proceedings.pdf#page=67" target="_top">http://archive.xmlprague.cz/2017/files/xmlprague-2017-proceedings.pdf#page=67</a></span></p></div><div class="bibliomixed"><a name="d5e467"></a><p class="bibliomixed">[<abbr class="abbrev">BCP14</abbr>]  S. Bradner and B. Leiba, Eds., <span class="title">Key words for use in
         RFCs to Indicate Requirement Levels and Ambiguity of Uppercase vs Lowercase in RFC 2119 Key
         Words</span>, IETF (Internet Engineering Task Force) 1997 &amp; 2017. <span class="bibliomisc">
         <a class="link" href="http://tools.ietf.org/html/bcp14" target="_top">http://tools.ietf.org/html/bcp14</a>
-      </span></p></div><div class="bibliomixed"><a name="d5e452"></a><p class="bibliomixed">[<abbr class="abbrev">BCP47</abbr>]  M. Davis, Ed., <span class="title">Tags for Identifying Languages</span>,
+      </span></p></div><div class="bibliomixed"><a name="d5e472"></a><p class="bibliomixed">[<abbr class="abbrev">BCP47</abbr>]  M. Davis, Ed., <span class="title">Tags for Identifying Languages</span>,
         <span class="bibliomisc"> IETF (Internet Engineering Task Force) <a class="link" href="http://tools.ietf.org/html/bcp47" target="_top">http://tools.ietf.org/html/bcp47</a>
-      </span>.</p></div><div class="bibliomixed"><a name="d5e457"></a><p class="bibliomixed">[<abbr class="abbrev">HTML5</abbr>]  S. Faulkner at al. Eds., <span class="title">HTML 5.2</span> W3C
+      </span>.</p></div><div class="bibliomixed"><a name="d5e477"></a><p class="bibliomixed">[<abbr class="abbrev">HTML5</abbr>]  S. Faulkner at al. Eds., <span class="title">HTML 5.2</span> W3C
       Recommendation 14 Dec 2017. <span class="bibliomisc"><a class="link" href="https://www.w3.org/TR/html52/" target="_top">https://www.w3.org/TR/html52/</a>
-          </span></p></div><div class="bibliomixed"><a name="d5e462"></a><p class="bibliomixed">[<abbr class="abbrev">ITS10</abbr>]  C. Lieske and F. Sasaki, Eds.: <span class="title">Internationalization Tag
+          </span></p></div><div class="bibliomixed"><a name="d5e482"></a><p class="bibliomixed">[<abbr class="abbrev">ITS10</abbr>]  C. Lieske and F. Sasaki, Eds.: <span class="title">Internationalization Tag
         Set (ITS) Version 1.0</span>. W3C Recommendation, 03 April 2007. W3C. <span class="bibliomisc"><a class="link" href="https://www.w3.org/TR/its/" target="_top">https://www.w3.org/TR/its/</a></span>
-    </p></div><div class="bibliomixed"><a name="d5e467"></a><p class="bibliomixed">[<abbr class="abbrev">ITS20</abbr>]  D. Filip, S. McCance, D. Lewis, C. Lieske, A. Lommel, J.
+    </p></div><div class="bibliomixed"><a name="d5e487"></a><p class="bibliomixed">[<abbr class="abbrev">ITS20</abbr>]  D. Filip, S. McCance, D. Lewis, C. Lieske, A. Lommel, J.
       Kosek, F. Sasaki, Y. Savourel, Eds.: <span class="title">Internationalization Tag Set (ITS) Version
         2.0</span>. W3C Recommendation, 29 October 2013. W3C. <span class="bibliomisc"><a class="link" href="http://www.w3.org/TR/its20/" target="_top">http://www.w3.org/TR/its20/</a></span>
-    </p></div><div class="bibliomixed"><a name="d5e472"></a><p class="bibliomixed">[<abbr class="abbrev">JSON-LD</abbr>]  M. Sporny, G. Kellogg, M. Lanthaler, Eds. <span class="title">JSON-LD
+    </p></div><div class="bibliomixed"><a name="d5e492"></a><p class="bibliomixed">[<abbr class="abbrev">JSON-LD</abbr>]  M. Sporny, G. Kellogg, M. Lanthaler, Eds. <span class="title">JSON-LD
         1.0, A JSON-based Serialization for Linked Data</span> W3C Recommendation 16 January 2014.
-      <span class="bibliomisc"><a class="link" href="https://www.w3.org/TR/2014/REC-json-ld-20140116/" target="_top">https://www.w3.org/TR/2014/REC-json-ld-20140116/</a>/&gt;</span></p></div><div class="bibliomixed"><a name="d5e477"></a><p class="bibliomixed">[<abbr class="abbrev">L10nStandards</abbr>]  D. Filip: Localization Standards Reader 4.0 [v4.0.1], Multilingual, vol. 30, no. 1, pp. 59&#8211;73, Jan/Feb-2019. <span class="bibliomisc"><a class="link" href="https://magazine.multilingual.com/issue/jan-feb-2019dm/localization-standards-reader-4-0/" target="_top">https://magazine.multilingual.com/issue/jan-feb-2019dm/localization-standards-reader-4-0/</a></span>
-  </p></div><div class="bibliomixed"><a name="d5e481"></a><p class="bibliomixed">[<abbr class="abbrev">NIF</abbr>]  S. Hellmann, J. Lehmann, S. Auer, and M. Br&uuml;mmer:
+      <span class="bibliomisc"><a class="link" href="https://www.w3.org/TR/2014/REC-json-ld-20140116/" target="_top">https://www.w3.org/TR/2014/REC-json-ld-20140116/</a>/&gt;</span></p></div><div class="bibliomixed"><a name="d5e497"></a><p class="bibliomixed">[<abbr class="abbrev">L10nStandards</abbr>]  D. Filip: Localization Standards Reader 4.0 [v4.0.1], Multilingual, vol. 30, no. 1, pp. 59&#8211;73, Jan/Feb-2019. <span class="bibliomisc"><a class="link" href="https://magazine.multilingual.com/issue/jan-feb-2019dm/localization-standards-reader-4-0/" target="_top">https://magazine.multilingual.com/issue/jan-feb-2019dm/localization-standards-reader-4-0/</a></span>
+  </p></div><div class="bibliomixed"><a name="d5e501"></a><p class="bibliomixed">[<abbr class="abbrev">NIF</abbr>]  S. Hellmann, J. Lehmann, S. Auer, and M. Br&uuml;mmer:
     <span class="title">Integrating NLP using Linked Data</span>. 12th International Semantic Web
     Conference, Sydney, Australia, 2013. <span class="bibliomisc"><a class="link" href="http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf" target="_top">http://svn.aksw.org/papers/2013/ISWC_NIF/public.pdf</a></span>
-  </p></div><div class="bibliomixed"><a name="d5e486"></a><p class="bibliomixed">[<abbr class="abbrev">UAX9</abbr>]  M. Davis, A. Lanin, and A. Glass, Eds.: <span class="title">UAX #9: Unicode
+  </p></div><div class="bibliomixed"><a name="d5e506"></a><p class="bibliomixed">[<abbr class="abbrev">UAX9</abbr>]  M. Davis, A. Lanin, and A. Glass, Eds.: <span class="title">UAX #9: Unicode
         Bidirectional Algorithm.</span>. Version: Unicode 11.0.0, Revision 39, 09 May 2018. Unicode
     Consortium. <span class="bibliomisc"><a class="link" href="http://www.unicode.org/reports/tr9/tr9-39.html" target="_top">http://www.unicode.org/reports/tr9/tr9-39.html</a>
         </span>
-    </p></div><div class="bibliomixed"><a name="d5e491"></a><p class="bibliomixed">[<abbr class="abbrev">Unicode</abbr>]  K. Whistler et al., Eds.: <span class="title">The Unicode
+    </p></div><div class="bibliomixed"><a name="d5e511"></a><p class="bibliomixed">[<abbr class="abbrev">Unicode</abbr>]  K. Whistler et al., Eds.: <span class="title">The Unicode
         Standard</span>. Version 11.0 - Core Specification, 05 June 2018. Unicode Consortium.
           <span class="bibliomisc"><a class="link" href="https://www.unicode.org/versions/Unicode11.0.0/UnicodeStandard-11.0.pdf" target="_top">https://www.unicode.org/versions/Unicode11.0.0/UnicodeStandard-11.0.pdf</a>
         </span>
-    </p></div><div class="bibliomixed"><a name="d5e496"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF12</abbr>]  Y. Savourel, J. Reid, T. Jewtushenko, and R. M. Raya, Eds.:
+    </p></div><div class="bibliomixed"><a name="d5e516"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF12</abbr>]  Y. Savourel, J. Reid, T. Jewtushenko, and R. M. Raya, Eds.:
       XLIFF Version 1.2, OASIS Standard. OASIS, 2008. Y. Savourel, D. Filip, R. M. Raya, and Y.
       Savourel, Eds.: <span class="title">XLIFF Version 1.2</span>. OASIS Standard, 01 February 2008. OASIS.
           <span class="bibliomisc"><a class="link" href="http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html" target="_top">http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html</a></span>
-    </p></div><div class="bibliomixed"><a name="d5e501"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF20</abbr>]  T. Comerford, D. Filip, R. M. Raya, and Y. Savourel, Eds.:
+    </p></div><div class="bibliomixed"><a name="d5e521"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF20</abbr>]  T. Comerford, D. Filip, R. M. Raya, and Y. Savourel, Eds.:
         <span class="title">XLIFF Version 2.0</span>. OASIS Standard, 05 August 2014. OASIS. <span class="bibliomisc"><a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html" target="_top">http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html</a></span>
-    </p></div><div class="bibliomixed"><a name="d5e506"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF21</abbr>]  D. Filip, T. Comerford, S. Saadatfar, F. Sasaki, and Y.
+    </p></div><div class="bibliomixed"><a name="d5e526"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF21</abbr>]  D. Filip, T. Comerford, S. Saadatfar, F. Sasaki, and Y.
       Savourel, Eds.: <span class="title">XLIFF Version 2.1</span>. OASIS Standard, 13 February 2018. OASIS
           <span class="bibliomisc"><a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html" target="_top">http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html</a></span>
-    </p></div><div class="bibliomixed"><a name="d5e511"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF21prd02</abbr>]  D. Filip, T. Comerford, S. Saadatfar, F. Sasaki, and Y.
+    </p></div><div class="bibliomixed"><a name="d5e531"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFF21prd02</abbr>]  D. Filip, T. Comerford, S. Saadatfar, F. Sasaki, and Y.
       Savourel, Eds.: <span class="title">XLIFF Version 2.1</span>. Public Review Draft 02, February 2017. OASIS
           <span class="bibliomisc"><a class="link" href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/csprd02/xliff-core-v2.1-csprd02.html" target="_top">http://docs.oasis-open.org/xliff/xliff-core/v2.1/csprd02/xliff-core-v2.1-csprd02.html</a></span>
-    </p></div><div class="bibliomixed"><a name="d5e516"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFFEMBP</abbr>] D. Filip and J. Husar&#269;&iacute;k, Eds., <span class="title">XLIFF 2 Extraction and
+    </p></div><div class="bibliomixed"><a name="d5e536"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFFEMBP</abbr>] D. Filip and J. Husar&#269;&iacute;k, Eds., <span class="title">XLIFF 2 Extraction and
         Merging Best Practice, Version 1.0</span>. Globalization and Localization Association
-      (GALA) TAPICC, 2018.</p></div><div class="bibliomixed"><a name="d5e519"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFFglsTBXBasic</abbr>]  J. Hayes, S. E. Wright, D. Filip, A. Melby, and
+      (GALA) TAPICC, 2018.</p></div><div class="bibliomixed"><a name="d5e539"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFFglsTBXBasic</abbr>]  J. Hayes, S. E. Wright, D. Filip, A. Melby, and
       D. Reineke, <span class="title">Interoperability of XLIFF 2.0 Glossary Module and TBX-Basic</span>,
         <span class="italic">Localisation Focus</span>, vol. 14, no. 1, pp. 43&#8211;50, Apr. 2015.
-      <span class="bibliomisc"><a class="link" href="https://www.localisation.ie/resources/publications/2015/260" target="_top">https://www.localisation.ie/resources/publications/2015/260</a></span></p></div><div class="bibliomixed"><a name="d5e525"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFFRender</abbr>] D. Filip and J. Husar&#269;&iacute;k, <span class="title">Modification and Rendering in Context of a Comprehensive Standards Based L10n Architecture</span>, Proceedings ASLING Translating and the Computer, vol. 40, pp. 95&#8211;112, Nov. 2018. <span class="bibliomisc"><a class="link" href="https://www.asling.org/tc40/wp-content/uploads/TC40-Proceedings.pdf" target="_top">https://www.asling.org/tc40/wp-content/uploads/TC40-Proceedings.pdf</a></span>
+      <span class="bibliomisc"><a class="link" href="https://www.localisation.ie/resources/publications/2015/260" target="_top">https://www.localisation.ie/resources/publications/2015/260</a></span></p></div><div class="bibliomixed"><a name="d5e545"></a><p class="bibliomixed">[<abbr class="abbrev">XLIFFRender</abbr>] D. Filip and J. Husar&#269;&iacute;k, <span class="title">Modification and Rendering in Context of a Comprehensive Standards Based L10n Architecture</span>, Proceedings ASLING Translating and the Computer, vol. 40, pp. 95&#8211;112, Nov. 2018. <span class="bibliomisc"><a class="link" href="https://www.asling.org/tc40/wp-content/uploads/TC40-Proceedings.pdf" target="_top">https://www.asling.org/tc40/wp-content/uploads/TC40-Proceedings.pdf</a></span>
   </p></div></div></div></body></html>

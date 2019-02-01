@@ -224,7 +224,7 @@
         <citation>BCP14</citation>). The <firstterm>ITS Module</firstterm> is the biggest feature
       that was requested by the industry community and approved by the TC for specification as part
       of <citation>XLIFF21</citation>.</para>
-    <para>So in a nutshell the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
+    <para>So in a nutshell, the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
       demonstrated as the two overlapping listings of namespaces.<example xml:id="commonNamespaces">
         <title>Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0</title>
         <programlisting>urn:oasis:names:tc:xliff:document:2.0            &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#core">Core</link> --> 
@@ -381,6 +381,14 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://d
         <its:translateRule selector="//xlf:*[@translate='yes']" translate='yes'/>
    </its:rules>]]></programlisting>
   </example>
+  <para>The above rule will correctly identify all XLIFF nodes that are using the
+        <code>xlf:translate</code> attribute with one important caveat, Translatability annotations
+      on pseudo-spans will be interpreted as empty &lt;sm/> nodes. And pseudo-span Translatability
+      overlaps with Translatability well-formed markup will not be properly interpreted, see
+        <citation>XLIFF21</citation>
+      <link
+        xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#translateAnnotation">http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#translateAnnotation</link>
+ .</para>
 
 
 </section>
@@ -419,9 +427,20 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://d
         the structural <code>&lt;source></code>, <code>&lt;target></code>,
         <code>&lt;segment></code>, and <code>&lt;ignorable></code> tags. The <code>&lt;unit></code>
         tag separates the upper clean XML well-formed structure from the transient structure of
-        segments where "non-well-formed" pseudo-spans formed by related empty tags
-          (<code>&lt;sc/></code> and <code>&lt;ec/></code>, as well as <code>&lt;sm/></code> and
-          <code>&lt;em/></code> pairs) need to be recognized and processed by XLIFF Agents.</para>
+        segments where "non-well-formed" pseudo-spans formed by related empty tags (<code>&lt;sc
+          id="1"/></code> and <code>&lt;ec startRef="1"/></code>, as well as <code>&lt;sm
+          id="2"/></code> and <code>&lt;em startRef="2"/></code> pairs) need to be recognized and
+        processed by XLIFF Agents. See <citation>XLIFF21</citation>
+        <link
+          xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#spanningcodeusage"
+          >Spanning Code Usage</link> ("<emphasis>Agents</emphasis> MUST be able to handle any of
+        the above two types of inline code representation") or <link
+          xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#pseudo-spanWarning"
+          >Pseudo-span Warning</link>. Since the equivalence of well-formed versions of the spanning
+        codes <code>&lt;pc></code> and markers <code>&lt;mrk></code> with the above pseudo-spans is
+        defined and described in XLIFF 2 itself, there is no need to include the well-formed
+        versions of the inline tags in the abstract LIOM and non-XML serializations including JLIFF
+        are free to use a fully linear inline data model.</para>
       <para>The above class diagram shows that a LIOM has four options of logical roots. The
         original XML serialization, i.e. XLIFF 2, can only use the top level root object according
         to its own grammar. On the other hand, the abstract object model caters for use cases where
@@ -436,7 +455,7 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://d
         serialization is an anonymous to level object with the required <code>jliff</code>
         property.</para>
       <para>
-        <example>
+        <example xml:id="XLIFFTop">
           <title>XLIFF top level element</title>
           <programlisting>&lt;xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" 
 xmlns:uext1="http://example.com/userextension/1.0"
@@ -454,7 +473,7 @@ version="2.1" srcLang="en" trgLang="fr">
         </example>
       </para>
       <para>
-        <example>
+        <example xml:id="JLIFFTop">
           <title>JLIFF anonymous top level object </title>
           <programlisting>{
     "jliff": "2.1",
@@ -464,7 +483,7 @@ version="2.1" srcLang="en" trgLang="fr">
     },
     "srcLang": "en",
     "trgLang": "fr",
-    "files | subitems | subunits": [ … /truncated payload structure / … ]      
+    "files | subfiles | sugbroups | subunits": [ … /truncated payload structure / … ]      
 }</programlisting>
         </example>
       </para>
@@ -473,8 +492,11 @@ version="2.1" srcLang="en" trgLang="fr">
         of source files. JLIFF has been conceived from the beginning as the JSON Localization
           <emphasis>Fragment</emphasis> Format, so that top level JLIFF object (<code>jliff</code>)
         can wrap an array of files (within the <code>files</code> object), an array of groups or
-        units (within the <code>subitems</code> object), or an array of sub-units (within the
-          <code>subunits</code> object).</para>
+        units (within the <code>subfiles</code> or the <code>subgroups</code> object), or an array
+        of sub-units (within the <code>subunits</code> object). Since the data model of a subfile
+        and a subgroup is identical, <code>subfiles</code> and <code>subgroups</code> are instances
+        of a common JSON schema type named <code>subitems</code>. The <code>subitem</code> type
+        object simply holds an array of anonymous group or unit objects.</para>
       <para>Also worth noting that the JLIFF top level object is anonymous with a required property
           <code>jliff</code>. The <code>jliff</code> property values are restricted at the moment to
           <code>2.1</code> or <code>2.0</code>. The context property is optional as it is only
@@ -524,6 +546,19 @@ version="2.1" srcLang="en" trgLang="fr">
           be also used <emphasis>vice versa</emphasis> to store terminology identified by human or
           machine agents during the roundtrip. A mapping of XLIFF Core + Glossary Module to and form
           TBX Basic has been defined in <citation>XLIFFglsTBXBasic</citation>.</para>
+        <para>The Metadata Module is perhaps the most suitable for being ported to JSON and other
+          serialization methods. While a module that in fact strictly protects it's content, it's in
+          fact an extensibility mechanism for implementers who don't want to extend via their own
+          namespace based extensions. The metada structure is optionally recursive and is allowed on
+          all XLIFF Core static structural elements (<code>file</code>, <code>group</code>,
+            <code>unit</code>). It doesn't specify a referencing mechanism. It is simply an
+          optionally hierarchically structured and locally stored set of key-value pairs to hold
+          custom metadata. Because the data strusture is restricted to key-value pairs it provides
+          at least some limited interoperability for the custom data as all implementers should be
+          capable of displaying structural elements related key-value pairs data. Each Metadata
+          Module object (or element) has an optional id property that allows for addressing from
+          outside the module.</para>
+        <para/>
       </section>
       <section xml:id="LIOMModulesITS">
         <title>The ITS Module</title>
@@ -738,7 +773,7 @@ version="2.1" srcLang="en" trgLang="fr">
 </section>
 
   <section>
-    <title>Conclusions</title>
+    <title>Discussion and Conclusions</title>
     <para>In the above we tried to show how we ported into JSON XLIFF 2, a complex business
       vocabulary from the area of Translation and Localization. While the paper deals in detail only
       with XLIFF and JLIFF, we believe that important topics were covered that will be useful for
