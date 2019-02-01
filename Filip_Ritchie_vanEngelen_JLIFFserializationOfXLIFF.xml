@@ -227,7 +227,7 @@
       that was requested by the industry community and approved by the TC for specification as part
       of <citation>XLIFF21</citation>.</para>
     <para>So in a nutshell the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
-      demonstrated as the two overlapping listings of namespaces.<example>
+      demonstrated as the two overlapping listings of namespaces.<example xml:id="commonNamespaces">
         <title>Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0</title>
         <programlisting>urn:oasis:names:tc:xliff:document:2.0            &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#core">Core</link> --> 
 
@@ -246,7 +246,7 @@ urn:oasis:names:tc:xliff:sizerestriction:2.0     &lt;!-- <link xl:href="http://d
 urn:oasis:names:tc:xliff:validation:2.0          &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#validation_module">Validation Module</link> --></programlisting>
       </example></para>
     <para>
-      <example>
+      <example xml:id="namespaces21only">
         <title>Namespaces that appear only in XLIFF 2.1</title>
         <programlisting>http://www.w3.org/2005/11/its                    &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#ITS-module">ITS Module</link> -->
 
@@ -254,7 +254,7 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://d
       </example>
     </para>
     <para>
-      <example>
+      <example xml:id="namespaces20only">
         <title>Namespaces that appear only in XLIFF 2.0</title>
         <programlisting>urn:oasis:names:tc:xliff:changetracking:2.0      &lt;!-- <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html#changeTracking_module">Change Tracking Module</link> --></programlisting>
       </example>
@@ -393,7 +393,7 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://d
     <title>The abstract Localization Interchange Object Model (LIOM) </title>
     <section xml:id="LIOMCore">
       <title>The Core Structure</title>
-      <para>This <link xl:href="LIOM">figure</link> is a UML class diagram rendering of the abstract
+      <para><link xl:href="LIOMFig">This figure</link> is a UML class diagram rendering of the abstract
         object model behind XLIFF 2 Core and hence also JLIFF core.</para>
       <para>
         <figure xml:id="LIOMFig">
@@ -457,7 +457,7 @@ version="2.1" srcLang="en" trgLang="fr">
       </para>
       <para>
         <example>
-          <title>JLIFF anonymous top level object</title>
+          <title>JLIFF anonymous top level object </title>
           <programlisting>{
     "jliff": "2.1",
     "@context": {
@@ -476,21 +476,55 @@ version="2.1" srcLang="en" trgLang="fr">
           <emphasis>Fragment</emphasis> Format, so that top level JLIFF object (<code>jliff</code>)
         can wrap an array of files (within the <code>files</code> object), an array of groups or
         units (within the <code>subitems</code> object), or an array of sub-units (within the
-          <code>subunits</code> object). </para>
+          <code>subunits</code> object).</para>
+      <para>Also worth noting that the JLIFF top level object is anonymous with a required property
+          <code>jliff</code>. The <code>jliff</code> property values are restricted at the moment to
+          <code>2.1</code> or <code>2.0</code>. The context property is optional as it is only
+        required to specify <citation>JSON-LD</citation> context for extensions if present. This is
+        a workaround to declaring the same extensions' namespaces in the XLIFF top level
+        example.</para>
      
     </section>
     <section xml:id="LIOMModules">
       <title>LIOM Modules</title>
       <section xml:id="LIOMModules2.0">
         <title>LIOM modules originating in XLIFF 2.0</title>
-      <para>XLIFF 2.0 defined 8 namespace based modules, from which 7 survived to XLIFF 2.1. We
-          won't be dealing with the deprecated Change Tracking Module.</para>
+      <para>XLIFF 2.0 defined 8 namespace based modules, from which 7 survived to XLIFF 2.1, see the
+            <link xl:href="#commonNamespaces">namespaces listing</link> above. We won't be dealing
+          with the deprecated Change Tracking Module.</para>
         <para>The simplest XLIFF module is the Format Style module that consists just of two
           attributes <code>fs</code> and <code>subFs</code>. Obviously this very easy to express
           both in the abstract LIOM and in the JLIFF serialization. The <code>subFs</code> property
           is only allowed on objects where <code>fs</code> has been specified. At the same time
-            <code>fs</code> values are restricted to a subset of <citation>HTML5</citation> tag
-          names.</para>
+            <code>fs</code> values are restricted to a subset (see <citation>XLIFF21</citation>
+          <link
+            xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#d0e13131"
+          />) of <citation>HTML5</citation> tag names. While the Format Style Module only provides 2
+          properties, it is rather far reaching as these are allowed on most structural and inline
+          elements of XLIFF Core. Information provided through fs and subFs is intended to allow for
+          simple transformations to create previews. Previews are extremely important to provide
+          context for human translators.</para>
+        <para>Apart from Format Style, all other Modules define their own elements. In general each
+          module top wrapper is explicitly allowed on certain static structure elements and has a
+          reference mechanism to point to a core content portion that it applies to. Glossary Module
+          data can be also pointed to <emphasis>vice versa</emphasis> from the Core Term
+          Annotation.</para>
+        <para>The Translation Candidates Module is only allowed on the unit level and serves for
+          storing of locally relevant Translation suggestions. Those typically come from a TM or MT
+          service. The Translation Candidate module reuses the core source and target data model, as
+          the data is designed to be compared with the core contained source content and populate
+          the core target content parts from the module target containers. While this primarily
+          targets human translators selecting suitable translation candidates. Most TMSes have a
+          function to populate or pre-populate core target containers with the module based
+          suggestions based on some decision making algorithms driven by the match metada caried
+          within the module. Those include properties such as <code>similarity</code>,
+            <code>matchQuality</code>, <code>matchSuitability</code>, <code>type</code> of the
+          candidate, but the only required property is a pointer identifying the relevant source
+          content span to which the translation suggestion applies. Apart from reusing core, the
+          module is extensible by the Metadata Module and by custom extensions.</para>
+        <para>Glossary Module is designed to provide locally relevant Terminology matches. But can
+          be also used <emphasis>vice versa</emphasis> to store terminology identified by human or
+          machine agents during the roundtrip.</para>
       </section>
       <section xml:id="LIOMModulesITS">
         <title>The ITS Module</title>
@@ -781,6 +815,9 @@ version="2.1" srcLang="en" trgLang="fr">
         2.0</title>. W3C Recommendation, 29 October 2013. W3C. <bibliomisc><link
           xl:href="http://www.w3.org/TR/its20/">http://www.w3.org/TR/its20/</link></bibliomisc>
     </bibliomixed>
+    <bibliomixed><abbrev>JSON-LD</abbrev> M. Sporny, G. Kellogg, M. Lanthaler, Eds. <title>JSON-LD
+        1.0, A JSON-based Serialization for Linked Data</title> W3C Recommendation 16 January 2014.
+      <bibliomisc><link xl:href="https://www.w3.org/TR/2014/REC-json-ld-20140116/">https://www.w3.org/TR/2014/REC-json-ld-20140116/</link>/></bibliomisc></bibliomixed>
   <bibliomixed><abbrev>L10nStandards</abbrev> D. Filip: Localization Standards Reader 4.0 [v4.0.1], Multilingual, vol. 30, no. 1, pp. 59–73, Jan/Feb-2019. <bibliomisc><link xl:href="https://magazine.multilingual.com/issue/jan-feb-2019dm/localization-standards-reader-4-0/">https://magazine.multilingual.com/issue/jan-feb-2019dm/localization-standards-reader-4-0/</link></bibliomisc>
   </bibliomixed>
   
