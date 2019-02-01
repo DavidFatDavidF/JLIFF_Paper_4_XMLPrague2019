@@ -104,10 +104,10 @@
         Schematron. This paper describes how XLIFF was ported to JSON via an abstract object model.
         Challenges and design principles of transforming a multi-namespace business vocabulary into
         JSON while preserving lossless machine to machine interchange between the serializations are
-        described in this paper. While we do explain about the internationalization (I18n) and
-        localization (L10n) business specifics, we are also striving to provide general takeaways
-        useful when porting XML based vocabularies into semantically and behaviorally interoperable
-        JSON serializations. </para>
+        described in this paper. While we do explain about the <firstterm>Internationalization
+          (I18n)</firstterm> and <firstterm>Localization (L10n)</firstterm> business specifics, we
+        are also striving to provide general takeaways useful when porting XML based vocabularies
+        into semantically and behaviorally interoperable JSON serializations. </para>
       <para/>
     </abstract>
   </info>
@@ -132,14 +132,15 @@
     <para>OASIS XLIFF OMOS TC only recently started developing JLIFF prose specification that should
       be released for the 1st public review by April 2019. It is however clear that the
       specification largely mimics the logical structure of the XLIFF 2 specifications. JLIFF is
-      designed to mirror XLIFF including its numerous modules. The modular design of XLIFF 2 makes
-      critical use of XML's namespace support. Each XLIFF 2 module has elements or attributes
-      defined in namespaces other than the core XLIFF 2 namespace. This allows the involved agents
-      (conformance application targets) to handle all and only those areas of XLIFF data that are
-      relevant for their area of expertize (for instance <firstterm>Translation Memory</firstterm>
-      matching, <firstterm>Terminology</firstterm>, <firstterm>Text Analysis</firstterm> or entity
-      recognition, <firstterm>Size and Length Restrictions</firstterm>, and so on). Now, how do you
-      handle multi-namespace in JSON that doesn't support namespaces? </para>
+      designed to mirror XLIFF including its numerous modules, albeit via the abstract object model.
+      The modular design of XLIFF 2 makes critical use of XML's namespace support. Each XLIFF 2
+      module has elements or attributes defined in namespaces other than the core XLIFF 2 namespace.
+      This allows the involved agents (conformance application targets) to handle all and only those
+      areas of XLIFF data that are relevant for their area of expertize (for instance
+        <firstterm>Translation Memory</firstterm> matching, <firstterm>Terminology</firstterm>,
+        <firstterm>Text Analysis</firstterm> or entity recognition, <firstterm>Size and Length
+        Restrictions</firstterm>, and so on). Now, how do you handle multi-namespace in JSON that
+      doesn't support namespaces? This is covered in </para>
   <para>The data formats we are describing in this paper are for managing
         <firstterm>Internationalization</firstterm> and <firstterm>Localization</firstterm> payloads
       and metadata throughout the multilingual content lifecycle. Even though corporations and
@@ -158,7 +159,12 @@
         <firstterm>Internationalization</firstterm> is primarily done on a monolingual content or
       product, <firstterm>Localization</firstterm>, and <firstterm>Translation</firstterm> when done
       at a certain level of maturity -- as a repeatable process possibly aspiring to efficiencies of
-      scale and automation -- requires a persistent <firstterm>Bitext</firstterm> format.</para>
+      scale and automation -- requires a persistent <firstterm>Bitext</firstterm> format. Bitext in
+      turn requires that <firstterm>Localizable</firstterm> or <firstterm>Translatable</firstterm>
+      parts of the source or native format are <firstterm>Extracted</firstterm> into the Bitext
+      format, which has provisions for storing the Translated or Localized target parts in an
+      aligned way that allows for efficient and automated processing of content during the
+      Localization roundtrip.</para>
     <para>Our paper presented to XML Prague 2017 <citation>3</citation> made a detailed introduction
       of XLIFF (<citation>XLIFF21prd02</citation> as the then current predecessor of
         <citation>XLIFF21</citation> backwards compatible with <citation>XLIFF20</citation>) as the
@@ -171,12 +177,12 @@
 
 <section xml:id="layoftheland">
     <title>Lay of the land</title>
-    <para>[NEEDS UPDATED] The foundational Internationalization Standard is of course
-        <citation>Unicode</citation> along with some related Unicode Annexes. But in this paper we
-      are taking the Unicode support for granted and will be looking at the domain standards W3C ITS
-      and OASIS XLIFF along with its upcoming JSON serialization JLIFF that are the open standards
-      relevant for covering the industry process areas outlined in the seond part of the <link
-        linkend="intro">Introduction</link>.</para>
+    <para>The foundational Internationalization Standard is of course <citation>Unicode</citation>
+      along with some related Unicode Annexes. But in this paper we are taking the Unicode support
+      for granted and will be looking at the domain standards W3C ITS and OASIS XLIFF along with its
+      upcoming JSON serialization JLIFF that are the open standards relevant for covering the
+      industry process areas outlined in the second part of the <link linkend="intro"
+        >Introduction</link>.</para>
     <para>For a long time, XML has been another unchallenged foundation of the multilingual content
       interoperability and hence practically all Localization and Internationalization standards
       started as or became at some point XML vocabularies. Paramount industry wisdom is stored in
@@ -412,7 +418,7 @@ urn:oasis:names:tc:xliff:itsm:2.1</programlisting>
       <para>The above class diagram shows that a LIOM has four options of logical roots. The
         original XML serialization, i.e. XLIFF 2, can only use the top level root object according
         to its own grammar. On the other hand, the abstract object model caters for use cases where
-        LIOM fragments could be exchanged. Such scenarios include real time unit exchnage between
+        LIOM fragments could be exchanged. Such scenarios include real time unit exchange between
         translation tools such as between a <firstterm>Translation Management System
           (TMS)</firstterm> and a translation or review workbench (browser based or standalone), a
         TMS and a <firstterm>Machine Translation (MT)</firstterm> engine, two different TMSes, and
@@ -420,7 +426,8 @@ urn:oasis:names:tc:xliff:itsm:2.1</programlisting>
       <para>Based on the above, a LIOM instance can represent a number of <firstterm>source
           files</firstterm> intended for Localization. The top level wrapper in the XML
         serialization is the <code>&lt;xliff></code> element, the top level object in the JSON
-        serialization is <code>jliff</code>.</para>
+        serialization is an anonymous to level object with the required <code>jliff</code>
+        property.</para>
       <para>
         <example>
           <title>XLIFF top level element</title>
@@ -441,7 +448,7 @@ version="2.1" srcLang="en" trgLang="fr">
       </para>
       <para>
         <example>
-          <title>JLIFF top level object</title>
+          <title>JLIFF anonymous top level object</title>
           <programlisting>{
     "jliff": "2.1",
     "@context": {
@@ -562,16 +569,17 @@ version="2.1" srcLang="en" trgLang="fr">
         necessarily fail to identify spans formed by XLIFF Core <code>&lt;sm/></code> and
           <code>&lt;em/></code> markers.</para>
     <para>In XLIFF, Modifiers can always transform <code>&lt;mrk id="1">span of text&lt;/mrk></code>
-      into <code> &lt;sm id="1"/>span of text&lt;em startRef="1"/></code>, which is fundamentally
-      inaccessible by ITS Processors without extended provisions. Unmodified or unextended ITS Rules
-      will find the <code>&lt;sm/></code> nodes, if those nodes do hold the W3C ITS namespace based
-      attributes or native XLIFF attributes that can be globally pointed to by ITS rules, yet they
-      will fail to identify the pseudo-spans and will consider the <code>&lt;sm/></code> nodes
-      empty, ultimately failing to identify the proper scope of the correctly identified datacat.
-      XLIFF implementers who want to make their XLIFF Stores maximally accessible to ITS processors
-      are encouraged to avoid forming of <code>&lt;sm/></code> based spans, it is however often not
-      possible. Had it been possible, XLIFF would have not needed to define <code>&lt;sm/></code>
-      and <code>&lt;em/></code> delimited pseudo-spans in the first place. </para>
+        into <code> &lt;sm id="1"/>span of text &lt;em startRef="1"/></code>, which is fundamentally
+        inaccessible by ITS Processors without extended provisions. Unmodified or unextended ITS
+        Rules will find the <code>&lt;sm/></code> nodes, if those nodes do hold the W3C ITS
+        namespace based attributes or native XLIFF attributes that can be globally pointed to by ITS
+        rules, yet they will fail to identify the pseudo-spans and will consider the
+          <code>&lt;sm/></code> nodes empty, ultimately failing to identify the proper scope of the
+        correctly identified datacat. XLIFF implementers who want to make their XLIFF Stores
+        maximally accessible to ITS processors are encouraged to avoid forming of
+          <code>&lt;sm/></code> based spans, it is however often not possible. Had it been possible,
+        XLIFF would have not needed to define <code>&lt;sm/></code> and <code>&lt;em/></code>
+        delimited pseudo-spans in the first place. </para>
     <para>Principal reasons to form pseudospans include the following requirements: 1) capability to
       represent non-XML content, 2) need for overlapping annotations, 3) capability to represent
       annotations overlapping with formatting spans as well as 4) annotations broken by segmentation
