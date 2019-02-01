@@ -402,7 +402,7 @@ urn:oasis:names:tc:xliff:itsm:2.1</programlisting>
         </figure>
         
       </para>
-      <para>The above can be be described as in a natural language as follows:</para>
+      <para>The above can be described in a natural language as follows:</para>
       <para>A <firstterm>LIOM</firstterm> instance contains at least one file. Each file can contain
         an optional recursive group structure of an arbitrary depth. Because grouping is fully
         optional, files can contain only a flat series of units. But also any file or group can
@@ -412,11 +412,15 @@ urn:oasis:names:tc:xliff:itsm:2.1</programlisting>
         the localizable source structure and only later in the process is expected to be Enriched
         with aligned target content. The content data type can contain character data mixed with
         inline elements. It is worth noting that XLIFF even in its XML serialization only preserves
-        a treelike document object model down to unit. In line markup present in the source and
+        a treelike document object model (DOM) down to unit. Inline markup present in the source and
         target content data can form spans that can and often have to overlap the tree structure
-        given by the well-formed <code>&lt;mrk></code>, <code>&lt;pc></code>,
-          <code>&lt;source></code>, <code>&lt;target></code>, <code>&lt;segment></code>, and
-          <code>&lt;ignorable></code> tags.</para>
+        given by the well-formed <code>&lt;mrk></code> and <code>&lt;pc></code>, but also notably
+        the structural <code>&lt;source></code>, <code>&lt;target></code>,
+        <code>&lt;segment></code>, and <code>&lt;ignorable></code> tags. The <code>&lt;unit></code>
+        tag separates the upper clean XML well-formed structure from the transient structure of
+        segments where "non-well-formed" pseudo-spans formed by related empty tags
+          (<code>&lt;sc/></code> and <code>&lt;ec/></code>, as well as <code>&lt;sm/></code> and
+          <code>&lt;em/></code> pairs) need to be recognized and processed by XLIFF Agents.</para>
       <para>The above class diagram shows that a LIOM has four options of logical roots. The
         original XML serialization, i.e. XLIFF 2, can only use the top level root object according
         to its own grammar. On the other hand, the abstract object model caters for use cases where
