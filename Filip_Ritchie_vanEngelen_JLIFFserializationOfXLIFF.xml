@@ -581,48 +581,63 @@ version="2.1" srcLang="en" trgLang="fr">
 
 <section>
 <title>The design of JLIFF</title>
-    <para>The design of JLIFF 2 follows the design of XLIFF 2 closely. As with XLIFF 2, the JLIFF 2
+    <para>The design of JLIFF follows the design of XLIFF 2 closely. As with XLIFF 2, the JLIFF 2
       Core is the abstract Localization Interchange Object Model - LIOM. One of the primary goals of
-      JLIFF 2 is compatibity with XLIFF 2. While JLIFF 2 is structurally different than XLIFF 2 due
-      to the much simpler JSON representation format, compatibility is made possible through the
-      following mappings:</para>
-    <para>1. As a general rule, JSON object property names are used to represent XLIFF elements and
+      JLIFF 2 is compatibility with XLIFF 2. While JLIFF is structurally different compared to XLIFF
+      2 due to the much simpler JSON representation format, compatibility is made possible through
+      the following mappings:</para>
+  <orderedlist>
+    <listitem>
+     <para>As a general rule, JSON object property names are used to represent XLIFF elements and
       attributes, with the exception of element sequences that must be represented by JSON arrays.
       JSON object properties should be unique and are unordered, whereas these constraints are not
-      generally imposed on XML elements; </para>
-    <para>2. It was decided to use JSON arrays to represent element sequences, for example a
+      generally imposed on XML elements; </para></listitem><listitem>
+        
+      
+    <para>It was decided to use JSON arrays to represent element sequences, for example a
       sequence of <code>&lt;file></code> elements becomes an array identified by the JSON object
       property <code>"files": […]</code> where each array item is an anonymous file object that may
       contain an array of <code>"subfiles": […]</code>. It was decided to use plural forms to refer
-      to arrays in JLIFF and as a reminder of the structual differences with XLIFF;</para>
-    <para>3. To store units and groups of files, JSON object property <code>"subfiles": […]</code>
+      to arrays in JLIFF and as a reminder of the structual differences with XLIFF;</para></listitem><listitem>
+        
+      
+    <para>To store units and groups of files, JSON object property <code>"subfiles": […]</code>
       is an array of unit and group objects representing XLIFF <code>&lt;unit></code> and
         <code>&lt;group></code> elements, where an anonymous unit object is identified by a
         <code>"kind": "unit"</code> and an anonymous group object is identified by <code>"kind":
-        "group"</code>;</para>
-    <para>4. Likewise, <code>"subunits": […]</code> is an array of subunits of a unit object, where
-      a segment subunit is identified as an object with <code>"kind": "segment"</code> and a
-      ignorable object is identified by <code>"kind": "ignorable"</code>;</para>
-    <para>5. A subset of XSD types that are used in XLIFF are also adopted in the JLIFF schema by
+          "group"</code>;</para></listitem>
+   <listitem>
+     
+    <para>Likewise, <code>"subunits": […]</code> is an array of subunits of a unit object, where a
+          segment subunit is identified as an object with <code>"kind": "segment"</code> and a
+          ignorable object is identified by <code>"kind": "ignorable"</code>;</para></listitem>
+      <listitem>
+    <para>A subset of XSD types that are used in XLIFF are also adopted in the JLIFF schema by
       defining corresponding JSON schema string types with restricted value spaces defined by regex
       patterns for <code>NCName</code>, <code>NMTOKEN</code>, <code>NMTOKENS</code>, and
-        <code>IRI</code>. The latter is not restricted by a regex pattern due to the lax validation
-      of IRI values by processors;</para>
-    <para>6. Because JSON intrinsically lacks namespace support, it was decided to use qualified
+        <code>URI/IRI</code>. The latter is not restricted by a regex pattern due to the lax
+      validation of URI and IRI values by processors;</para></listitem>
+      <listitem><para>Because JSON intrinsically lacks namespace support, it was decided to use qualified
       JSON object property names to represent XLIFF modules, which is purely syntactic to enhance
       JLIFF document readability and processing. For example, ITS module properties are identified
-      by prefix <code>its_</code>, such as <code>"its_locQualityIssues"</code>;</para>
-    <para>7. JLIFF extensions are defined by the optional JSON-LD context <code>"@context":
+      by prefix <code>its_</code>, such as <code>"its_locQualityIssues"</code>;</para></listitem>
+      <listitem>
+    <para>JLIFF extensions are defined by the optional JSON-LD context <code>"@context":
         {…}</code> as a property of the anonymous JLIFF root object. JSON-LD offers a suitable
       replacement of XML namespaces required for extension identification and processing. A JSON-LD
       context is a mapping of prefixes to IRIs. A JSON-LD processor resolves the prefix in an object
-      property name to a fully qualified name with corresponding IRI qualifier;</para>
-    <para>8. To identify JLIFF documents, the anonymous JLIFF root object has property
-        <code>"jliff": "2.0"</code> or <code>"jliff": "2.1"</code>;</para>
-    <para>9. One of the decisions taken in relation to element mappings was not to explicitly
+      property name to a fully qualified name with corresponding IRI qualifier;</para></listitem>
+      
+      <listitem>
+    <para>To identify JLIFF documents, the anonymous JLIFF root object has property
+      <code>"jliff": "2.0"</code> or <code>"jliff": "2.1"</code>;</para>
+      </listitem>
+      <listitem>
+    <para>One of the decisions taken in relation to element mappings was not to explicitly
       support XLIFF <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements, therefore it was
       decided that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and         <code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to <code>&lt;sc/></code>
- and <code>&lt;ec/></code>      pairs.</para>
+ and <code>&lt;ec/></code>      pairs.</para></listitem>
+  </orderedlist>
 
 </section>
 
