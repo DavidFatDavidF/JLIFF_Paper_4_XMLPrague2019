@@ -789,10 +789,32 @@ version="2.1" srcLang="en" trgLang="fr">
               <code>element-em</code> in the schema. Note that <code>element-text</code> is a string
             while the other types are objects.</para>
       </listitem>
+        <listitem>
+          <para>JLIFF considers modules an integral part of the JLIFF specification, meaning that
+            all modules are part of the single JSON schema specification of JLIFF. The decision to
+            make modules part of the JLIFF specification is a practical one that simplifies the
+            processing of modules by processors, as modules are frequently used (albeit different
+            subsets based on individual needs and specializations) by implementers. By contrast,
+            extensions are registered externally and included in JLIFF documents as
+              <code>userdata</code> objects. A <code>userdata</code> object contains one or more
+            extensions as key-value pairs: each extension is identified by a qualified property with
+            an extension-specific JSON value. The prefix of the qualified property of an extension
+            is bound to the IRI of the extension using the JSON-LD <code>@context</code> to identify
+            the unique extension namespace IRI. Processors that are required to handle extensions
+            should resolve the prefix to the extension’s objects fully qualified names as per
+            JSON-LD processing requirements. Otherwise extensions can be ignored without raising
+            validation failures. This approach offers an extensible and flexible mechanism for JLIFF
+            extensions. While the JSON-LD workaround for namespaces was considered a suitable
+            solution for extensions, it was considered heavy weight and to complex for modules that
+            are used regularly. The "context" of modules is considered a shared JLIFF agent
+            knowledge documented in the prose specification rather then being resolved each time
+            when module data need processed, hammering OASIS servers that would need to hold the
+            canonical context files required for proper JSON-LD processing.</para>
+        </listitem>
     </orderedlist>
     </para>
   
-  <para></para>
+  
 </section>
 
 <section>
