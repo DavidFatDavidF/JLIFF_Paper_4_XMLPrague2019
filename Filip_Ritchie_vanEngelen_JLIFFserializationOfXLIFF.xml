@@ -755,21 +755,44 @@ version="2.1" srcLang="en" trgLang="fr">
       to JLIFF and validated by the JLIFF JSON schema. A reference implementation is being developed
       for lossless translation of XLIFF into JLIFF and back, except for support for
         <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements as explained above.</para>
-    <para>Further design considerations worth noting include:</para>
-    <para>While JSON supports the Boolean type values <code>true</code> and <code>false</code>, it
-      was decided to use string based enumerations of <code>yes</code> and <code>no</code> in JLIFF
-      to represent XLIFF attributes of the <code>yesNo</code> type. There are two main reasons for
-      this. Firstly, the omission of a Boolean value is usually associated with the value false by
-      processors and applications. By contrast, the absence of a value should not default to false
-      in JLIFF. The absence of a value has an XLIFF driven meaning. In fact the XLIFF default of the
-        <code>yesNo</code> attributes is <code>yes</code>. Absence of of an attribute typically
-      indicates permission. Hence we defined the yes defaults in the JLIFF JSON schema, which would
-      have conflicted with the defaulting behavior of the JSON Boolean type. Secondly, the object
-      property <code>canReorder</code> of the <code>ec</code>, <code>ph</code>, and <code>sc</code>
-      objects is three-valued with the <code>yes</code>, <code>no</code>, and <code>firstNo</code>
-      enumeration, necessitating the use of a JSON string type rather than a JSON Boolean type in
-      JLIFF.</para>
-    <para/>
+    <para>Further design considerations worth noting include:<orderedlist>
+        <listitem>
+          <para>While JSON supports the Boolean type values <code>true</code> and <code>false</code>, it
+            was decided to use string based enumerations of <code>yes</code> and <code>no</code> in JLIFF
+            to represent XLIFF attributes of the <code>yesNo</code> type. There are two main reasons for
+            this. Firstly, the omission of a Boolean value is usually associated with the value false by
+            processors and applications. By contrast, the absence of a value should not default to false
+            in JLIFF. The absence of a value has an XLIFF driven meaning. In fact the XLIFF default of the
+            <code>yesNo</code> attributes is <code>yes</code>. Absence of of an attribute typically
+            indicates permission. Hence we defined the yes defaults in the JLIFF JSON schema, which would
+            have conflicted with the defaulting behavior of the JSON Boolean type. Secondly, the object
+            property <code>canReorder</code> of the <code>ec</code>, <code>ph</code>, and <code>sc</code>
+            objects is three-valued with the <code>yes</code>, <code>no</code>, and <code>firstNo</code>
+            enumeration, necessitating the use of a JSON string type rather than a JSON Boolean type in
+            JLIFF.</para>
+        </listitem>
+      <listitem>
+        <para>Almost all JSON schema types defined for JLIFF correspond one-to-one with JSON object
+            property names in JLIFF documents. This design choice reduces efforts to comprehend the
+            JLIFF JSON schema structure for implementers versed in XLIFF. For example, the
+              <code>files</code> property mentioned earlier has a corresponding <code>files</code>
+            type in the JLIFF JSON schema, which is an array that references the <code>file</code>
+            schema type. However, this schema design deviates in one important aspect that is
+            intended to avoid unnecessary duplication of the schema types for the properties
+              <code>subfiles</code> and <code>subgroups</code> that share the same data model. It
+            was decided to introduce the schema type <code>subitems</code> to represent the value
+            space of both <code>subfiles</code> and <code>subgroups</code>. We also added named
+            types to the schema that have no corresponding property name, to break out the JSON
+            structure more clearly. For example, <code>elements</code> is an array of mixed types,
+            which is <code>one of</code> (<code>element-text</code>, <code>element-ph</code>,
+              <code>element-sc</code>, <code>element-ec</code>, <code>element-sm</code>, and
+              <code>element-em</code> in the schema. Note that <code>element-text</code> is a string
+            while the other types are objects.</para>
+      </listitem>
+    </orderedlist>
+    </para>
+  
+  <para></para>
 </section>
 
 <section>
