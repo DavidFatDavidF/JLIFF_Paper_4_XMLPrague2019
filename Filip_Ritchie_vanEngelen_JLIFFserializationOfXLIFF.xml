@@ -205,21 +205,23 @@
       during the localization processes or during the language service transformations that are
       necessary to produce target content and are typically facilitated by Bitext. This naturally
       led to a non-normative mapping of <citation>ITS20</citation> to <citation>XLIFF12</citation>
-      and to <citation>XLIFF20</citation>. Thus ITS 2.0 became a very useful extension to XLIFF. One
-      of the main reasons why <citation>XLIFF20</citation> is not backwards compatible with
+      and to <citation>XLIFF20</citation>. Thus ITS 2.0 became a very useful extension to
+      XLIFF.</para>
+    <para>One of the main reasons why <citation>XLIFF20</citation> is not backwards compatible with
         <citation>XLIFF12</citation> is that the OASIS XLIFF TC and the wider stakeholder community
       wanted to create XLIFF 2 with a modularized data model. <citation>XLIFF20</citation> has a
       small non-negotiable core but at the same time it brings 8 namespace based modules for
       advanced functionality. The modular and extensible design aims at easy production of "dot"
-      revisions or releases of the standard. XLIFF 2.0 was intended as the first in the future
-      family of backwards compatible XLIFF 2 standards that will share the maximally interoperable
-      core (as well as successful modules surviving from 2.0). XLIFF 2 makes a distinction between
-      modules and extensions. While module features are optional, <firstterm>Conformant XLIFF
-        Agents</firstterm> are bound by an absolute prohibition to delete module based metadata,
-      whereas deletion of extension based data is discouraged but not prohibited (the SHOULD NOT
-      normative keyword is used). The <firstterm>ITS Module</firstterm> is the biggest feature that
-      was requested by the industry community and approved by the TC for specification as part of
-        <citation>XLIFF21</citation>.</para>
+      revisions or releases of the standard. XLIFF Version 2.0 was intended as the first in the
+      future family of backwards compatible XLIFF 2 standards that will share the maximally
+      interoperable core (as well as successful modules surviving from 2.0). XLIFF 2 makes a
+      distinction between modules and extensions. While module features are optional,
+        <firstterm>Conformant XLIFF Agents</firstterm> are bound by an absolute prohibition to
+      delete module based metadata (MUST NOT), whereas deletion of extension based data is
+      discouraged but not prohibited (the SHOULD NOT normative keyword is used, see
+        <citation>BCP14</citation>). The <firstterm>ITS Module</firstterm> is the biggest feature
+      that was requested by the industry community and approved by the TC for specification as part
+      of <citation>XLIFF21</citation>.</para>
     <para>So in a nutshell the difference between XLIFF 2.1 and XLIFF 2.0 can be explained and
       demonstrated as the two overlapping listings of namespaces.<example>
         <title>Namespaces that appear both in XLIFF 2.1 and XLIFF 2.0</title>
@@ -725,10 +727,17 @@ version="2.1" srcLang="en" trgLang="fr">
     
   <bibliomixed><abbrev>3</abbrev> D. Filip, <title>W3C ITS 2.0 in OASIS XLIFF 2.1</title>, in XML
     Prague 2017 - Conference Proceedings, Prague, 2017, vol. 2017, pp. 55–71. <bibliomisc xl:href="http://archive.xmlprague.cz/2017/files/xmlprague-2017-proceedings.pdf#page=67"><link></link></bibliomisc></bibliomixed>
+   
+  <bibliomixed><abbrev>BCP14</abbrev> S. Bradner and B. Leiba, Eds. <title>Key words for use in RFCs
+        to Indicate Requirement Levels and Ambiguity of Uppercase vs Lowercase in RFC 2119 Key
+        Words</title>, IETF (Internet Engineering Task Force) 1997 &amp; 2017 <bibliomisc>
+        <link xl:href="http://tools.ietf.org/html/bcp14">http://tools.ietf.org/html/bcp14</link>
+      </bibliomisc> .</bibliomixed>
   
-  <bibliomixed><abbrev>BCP47</abbrev> M. Davis, Ed. <title>Tags for Identifying Languages</title>, <bibliomisc>
-        <link xl:href="http://tools.ietf.org/html/bcp47">http://tools.ietf.org/html/bcp47</link>
-      </bibliomisc> IETF (Internet Engineering Task Force).</bibliomixed>
+  <bibliomixed><abbrev>BCP47</abbrev> M. Davis, Ed. <title>Tags for Identifying Languages</title>,
+        <bibliomisc> IETF (Internet Engineering Task Force) <link
+          xl:href="http://tools.ietf.org/html/bcp47">http://tools.ietf.org/html/bcp47</link>
+      </bibliomisc>.</bibliomixed>
   
   
   <bibliomixed><abbrev>ITS10</abbrev> C. Lieske and F. Sasaki, Eds.: <title>Internationalization Tag
