@@ -36,7 +36,7 @@
       <uri>http://www.vistatec.com</uri>
       <uri>http://blog.phil-ritchie.net/idiomatic-prose</uri>
       <personblurb>
-        <para><emphasis role="bold">Phil Ritchie</emphasis>is Chief Technology Officer at Vistatec,
+        <para><emphasis role="bold">Phil Ritchie</emphasis> is Chief Technology Officer at Vistatec,
           a Dublin headquartered Language Service Provider where he directs all Research,
           Development and Process Innovation activities. He is a founding industrial partner of the
           ADAPT Research Centre and Chair of the W3C Internationalization Tag Set Interest Group.
@@ -621,8 +621,9 @@ version="2.1" srcLang="en" trgLang="fr">
         <code>"jliff": "2.0"</code> or <code>"jliff": "2.1"</code>;</para>
     <para>9. One of the decisions taken in relation to element mappings was not to explicitly
       support XLIFF <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements, therefore it was
-      decided that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and         <code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to <code>&lt;sc/></code>
- and <code>&lt;ec/></code>      pairs.</para>
+      decided that <code>&lt;mrk/></code> is mapped to <code>&lt;sm/></code> and
+        <code>&lt;em/></code> pairs, and <code>&lt;pc/></code> is mapped to <code>&lt;sc/></code>
+      and <code>&lt;ec/></code> pairs.</para>
 
 </section>
 
@@ -674,12 +675,11 @@ version="2.1" srcLang="en" trgLang="fr">
       instance</para>
     <para><example>
         <title>NCName pattern in JSON schema</title>
-      <programlisting>"NCName": {
+      </example><programlisting>"NCName": {
       "description": "XSD NCName type for xml:id interoperability",
       "type": "string",
       "pattern": "^[_A-Za-z][-._A-Za-z0-9]*$"
-    }</programlisting></example></para>
-    <para>Namespaces
+    }</programlisting>Namespaces
       support workarounds in JSON are worth an extra mention. While JSON doesn't support namespaces
         <emphasis>per se</emphasis>. We identified the JSON-LD methods for introducing and
       shortening fully qualified names quite useful as a namespaces support surrogate. For practical
