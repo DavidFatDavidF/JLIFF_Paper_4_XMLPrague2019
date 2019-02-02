@@ -181,6 +181,8 @@
 
 <section xml:id="layoftheland">
     <title>Lay of the land</title>
+  <section xml:id="L10nStandards">
+    <title>I18n and L10n Standards</title>
     <para>The foundational Internationalization Standard is of course <citation>Unicode</citation>
       along with some related Unicode Annexes (such as <citation>UAX9</citation>). However, in this
       paper we are taking the Unicode support for granted and will be looking at the domain
@@ -284,6 +286,9 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://d
       hence absolutely protected) data when it appears on the extension points where it is
       explicitly listed in the prose specification which corresponds to where it is allowed by core
       NVDL and Schematrons. Core xsd is not capable of making this distinction.  </para>
+  </section>
+  <section xml:id="Extraction">
+    <title>The Notion of Extracting XLIFF Payload from Native Formats</title>
     <para>Best practice for <firstterm>Extracting</firstterm> native content into
         <citation>XLIFF21</citation> has been recently specified as a deliverable of the GALA TAPICC
       Project in <citation>XLIFFEMBP</citation>, see this publicly available specification for
@@ -414,7 +419,7 @@ urn:oasis:names:tc:xliff:itsm:2.1                &lt;!-- <link xl:href="http://d
         xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#translateAnnotation"
         >http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#translateAnnotation</link>.</para>
 
-
+  </section>
 </section>
   
   
@@ -539,7 +544,7 @@ version="2.1" srcLang="en" trgLang="fr">
             <citation>XLIFF21</citation>, see the <link xl:href="#commonNamespaces">namespaces
             listing</link> above. We won't be dealing with the deprecated Change Tracking
           Module.</para>
-        <para>The simplest XLIFF module is the <link
+        <para>The simplest <citation>XLIFF21</citation> Module is the <link
             xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#fs-mod"
             >Format Style Module</link> that consists just of two attributes <code>fs</code> and
             <code>subFs</code>. Obviously this very easy to express both in the abstract LIOM and in
@@ -558,7 +563,8 @@ version="2.1" srcLang="en" trgLang="fr">
           reference mechanism to point to a core content portion that it applies to. Glossary Module
           data can be also pointed to <emphasis>vice versa</emphasis> from the <link xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#termAnnotation">Core Term
             Annotation</link>.</para>
-        <para>The <link
+        <para>The <citation>XLIFF21</citation>
+          <link
             xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#candidates"
             >Translation Candidates Module</link> is only allowed on the unit level and serves for
           storing of locally relevant Translation suggestions. Those typically come from a TM or MT
@@ -573,12 +579,19 @@ version="2.1" srcLang="en" trgLang="fr">
           candidate, but the only required property is a pointer identifying the relevant source
           content span to which the translation suggestion applies. Apart from reusing core, the
           module is extensible by the Metadata Module and by custom extensions.</para>
-        <para>Glossary Module is designed to provide locally relevant Terminology matches. But can
-          be also used <emphasis>vice versa</emphasis> to store terminology identified by human or
-          machine agents during the roundtrip. A mapping of XLIFF Core + Glossary Module to and form
-          TBX Basic has been defined in <citation>XLIFFglsTBXBasic</citation>. This mapping is now
-          being standardized also within OASIS XLIFF OMOS TC (the home of LIOM and JLIFF).</para>
-        <para>The Metadata Module is perhaps the most suitable for being ported to JSON and other
+        <para>The <citation>XLIFF21</citation>
+          <link
+            xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#glossary-module"
+            >Glossary Module</link> is designed to provide locally relevant Terminology matches. But
+          can be also used <emphasis>vice versa</emphasis> to store terminology identified by human
+          or machine agents during the roundtrip. A mapping of XLIFF Core + Glossary Module to and
+          form TBX Basic has been defined in <citation>XLIFFglsTBXBasic</citation>. This mapping is
+          now being standardized also within OASIS XLIFF OMOS TC (the home of LIOM and
+          JLIFF).</para>
+        <para>The <citation>XLIFF21</citation>
+          <link
+            xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#metadata_module"
+            >Metadata Module</link> is perhaps the most suitable for being ported to JSON and other
           non-markup-language serialization methods. While being a module that in fact strictly
           protects it's content, it's also an extensibility mechanism for implementers who don't
           want to extend via their own namespace based extensions. The metadata structure is
@@ -591,18 +604,54 @@ version="2.1" srcLang="en" trgLang="fr">
           related key-value pairs data. Each Metadata Module object (element) has an optional id
           property (attribute) that allows for addressing from outside the module, either globally
           or within the LIOM instance.</para>
-        <para/>
+        <para>The <citation>XLIFF21</citation> Resource Data Module is designed to provide native
+          resource data either as context for the Translatable payload or as non-text based resource
+          data to be modified along with the Translatable payload (if the resource data model is
+          known and supported by the receiving agent), for instance GUI resources to be resized to
+          fit the Translated UI strings. Resource data can be considered locally specific skeleton
+          data and would be typically binary or generally of any media type. To tell receiving
+          agents what type of data the module holds, there is a media type property
+            (<code>mimeType</code> attribute).</para>
+        <para>The <citation>XLIFF21</citation>
+          <link
+            xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#size_restriction_module"
+            >Size and Length Restriction Module</link> is a powerful mechanism that allows for
+          defining any sort of size or storage constraints, even multidimensional. IT specifies a
+          standard code point based restriction profile as well as three standard storage size
+          restriction profiles. It also gives guidance how to specify arbitrary size or shape
+          restriction profiles, for instance to control fitting restrictions in complex desktop
+          publishing environments, custom embedded displays with font limitations, and so on.</para>
+        <para>The <citation>XLIFF21</citation>
+          <link
+            xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#validation_module"
+            >Validation Module</link> provides an end user friendly way to specify simple Quality
+          Assurance rules that target strings need to fulfill, mainly in relation to source strings.
+          For instance a substring that appears in source must or must not appear in the target
+          string. For instance, a brand name must appear in both source and target. Or on the
+          contrary, a brand name must not be used in a specific locale for legal reasons. </para>
       </section>
       <section xml:id="LIOMModulesITS">
         <title>The ITS Module</title>
-      
-      <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#language-information">Language
-          Information</link> uses the <citation>BCP47</citation> data model via
-          <code>xml:lang</code> to indicate the natural language of content. This is obviously very
-        useful in case you want to source translations or even just render the content with proper
-        locale specifics.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#directionality">Directionality</link> has
+        <para>The <citation>XLIFF21</citation>
+          <link
+            xl:href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#ITS-module"
+            >ITS Module</link> specification is comparable in size with all the other Module
+          specifications taken together. It defines native support or mapping, Extraction or ITS
+          Rules parsing guidance for all 19 W3C ITS 2.0 <citation>ITS20</citation> metadata
+          categories and for its <citation>ITS20</citation>
+          <link xl:href="https://www.w3.org/TR/its20/#its-tool-annotation">ITS Tools
+            Annotation</link> mechanism.</para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#language-information">Language
+            Information</link> uses the <citation>BCP47</citation> data model via
+            <code>xml:lang</code> to indicate the natural language of content. This is obviously
+          very useful in case you want to source translations or even just render the content with
+          proper locale specifics. This partially overlaps with XLIFF's own usage of
+            <code>xml:lang</code> to specify <code>srcLang</code> and <code>trgLang</code>. An
+            <code>urn:oasis:names:tc:xliff:itsm:2.1</code> namespace based attribute
+            <code>itsm:lang</code> is provided to specify third language material inline. Both xsd
+          and JSON Schema have an issue in validating <citation>BCP47</citation> tags. A regex or
+          custom code based solution is recommended.</para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#directionality">Directionality</link> has
           quite a profound Internationalization impact, it let's renderers decide at the protocol
           level (as opposed to the plain text or script level) whether the content is to be
           displayed left to right (LTR - Latin script default) or right to left (RTL - Arabic or
@@ -610,97 +659,112 @@ version="2.1" srcLang="en" trgLang="fr">
           <citation>UAX9</citation>as well as directionality provisions in HTML and many XML
           vocabularies changed since 2012/2013, so the ITS 2.0 specification text is actually not
           very helpful here. This obviously doesn't affect the importance of the abstract data
-          category and of having proper display behavior for bidirectional content.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#preservespace">Preserve Space</link>
-        indicates via <code>xml:space</code> whether or not whitespace characters are significant.
-        If whitespace is significant in source content it is usually significant also in the target
-        content, this is more often then not an internal property of the content format, but it's
-        important to keep this characteristics through transformation pipelines. The danger that
-        this category is trying to prevent is the loss of significant whitespace characters that
-        could not be recovered.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#idvalue">ID Value</link> indicates via
-          <code>xml:id</code> a globally unique identifier that should be preserved during
-        translation and localization transformations mainly for the purposes of reimport of target
-        content to all the right places in the native environment.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#terminology">Terminology</link> can simply
-        indicate words or multi-word expressions as terms or non-terms. This is how the category
-        worked in ITS 1.0. In ITS 2.0, Terminology can be more useful by pointing to definitions or
-        indicating a confidence score, which is especially useful in cases the Terminology entry was
-        seeded automatically. Terminology doesn't belong exclusively here. Together with Text
-        Analysis it can be actually injected into the content during any stage of the lifecycle and
-        is not limited to source. However, it is very important for the localization process, human
-        or machine driven, to have Terminology annotated be it even only the simple Boolean
-        flag.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#textanalysis">Text Analysis</link> is a
-        sister category to Terminology that is new in ITS 2.0. It is intended to hold mostly
-        automatically sourced (possibly semi-supervised) entity disambiguation information. This can
-        be useful for translators and reviewers but can also enrich reading experience in purely
-        monolingual settings.</para>
-      <para><link xl:href="">Domain</link> can be used to indicate content topic, specialization or
-        subject matter focus that is required to produce certain translations. This can be for
-        instance used to select a suitably specialized MT engine, such as one trained on an
-        automotive bilingual corpus in case an automotive domain is indicated or. In another use
-        case, a language service provider will use a sworn translator and require in country legal
-        subject matter review in case the domain was indicated as legal. Although ITS data
-        categories are defined independently and don't have implementation dependencies, Domain
-        information is well suited for usage together with the Terminology and Text Analysis
-        datacats. </para>
-    </section>
-    <section>
-      <title>TBW</title>
-      <para>[NEEDS ADAPTED - left only datacats suitable to demonstrate the point]</para>
-      <para>It might seem that this type of metadata is completely new in <citation>ITS
-          2.0</citation>, since <citation>ITS 1.0</citation> concentrated almost exclusively on
-        source metadata. However, as mentioned above, Terminology - that was present in already in
-        ITS 1.0 - can be injected at any point and is not confined to source. Also Directionality is
-        a characteristics of source as well as target and has profound importance during the
-        roundtrip. This was however not the focus in ITS 1.0. </para>
-      <para>
-        <link xl:href="http://www.w3.org/TR/its20/#mtconfidence">MT Confidence</link>, <link
-          xl:href="http://www.w3.org/TR/its20/#lqissue">Localization Quality Issue</link>, <link
-          xl:href="http://www.w3.org/TR/its20/#lqrating">Localization Quality Rating</link>, and
-          <link xl:href="http://www.w3.org/TR/its20/#provenance">Provenance</link> - all new
-        categories in ITS 2.0 - can be only produced during Localization transformations;
-        specifically, during Machine Translation, during a review or quality assurance process,
-        during or immediately after a manual or automated translation or revision.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#mtconfidence">MT Confidence</link> gives a
-        simple score between 0 and 1 that encodes the automated translation system's internal
-        confidence that the produced translation is correct. This score isn't interoperable but can
-        be used in single engine scenarios for instance to color code the translations for readers
-        or post-editors. It can also be used for storing the data for several engines and running
-        comparative studies to make the score interoperable first in specific environments and later
-        on maybe generally. </para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#lqissue">Localization Quality Issue</link>
-        contains a taxonomy of possible Translation and Localization errors that can be applied in
-        annotations of arbitrary content spans. The taxonomy ensures that this information can be
-        exchanged among various Localization roundtrip agents. Although this mark up is typically
-        introduced in a Bitext environment on target spans, marking up source isn't exclude and can
-        be very practical, especially when implementing the feedback or even reporting a source
-        issue. Importantly, the issues and their descriptions can be Extracted into target content
-        and consumed by monolingual reviewers in the native environment.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#lqrating">Localization Quality Rating</link>
-        is again a simple score that gives a percentage indicating the quality of any portion of
-        content. This score is obviously only interoperable within an indicated Localization Quality
-        Rating system or metrics. Typically flawless quality is considered 100 % and various issue
-        rates per translated volume would strike down percentages, possibly dropping under an
-        acceptance threshold that can be also specified.</para>
-      <para><link xl:href="http://www.w3.org/TR/its20/#provenance">Provenance</link> in ITS is
-        strictly specialized to indicate only translation and revision agents. Agents can be
-        organizations, people or tools or described by combinations of those. For instance,
-        Provenance can indicate that the Reviser John Doe from ACME Language Quality Assurance Inc.
-        produced a content revision with the Perfect Cloud Revision Tool. </para>
-    
- 
-    <para>In spite of <citation>XLIFF 2.1</citation> now using the W3C namespace for the ITS Module,
-        there is a systematic scope mismatch between the XLIFF defined ITS attributes and the ITS
-        defined XML attributes. Because ITS 2.0 has no provision to parse pseudo-spans, it will
-        necessarily fail to identify spans formed by XLIFF Core <code>&lt;sm/></code> and
-          <code>&lt;em/></code> markers.</para>
-    <para>In XLIFF, Modifiers can always transform <code>&lt;mrk id="1">span of text&lt;/mrk></code>
-          into <code> &lt;sm id="1"/>span of text &lt;em startRef="1"/></code>, which is
-          fundamentally inaccessible by ITS Processors (or other generic XML tooling) without
-          extended provisions. Unmodified or unextended ITS Rules will find the
-            <code>&lt;sm/></code> nodes, if those nodes do hold the W3C ITS namespace based
+          category and of having proper display behavior for bidirectional content. LIOM contains
+          core <code>srcDir</code> and trgDir and <code>dir</code> properties that allow values
+            <code>ltr</code>, <code>rtl</code>, and <code>auto</code>. The default auto determines
+          directionality heuristically as specified in <citation>UAX9</citation>. Directionality in
+          XLIFF is given by a high level protocol in the sense of <citation>UAX9</citation>. All
+          objects that can have the directionality property in LIOM either determine the
+          directionality of their descendants (as higher level protocol) or act as directionality
+          isolators inline.</para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#preservespace">Preserve Space</link>
+          indicates via <code>xml:space</code> whether or not whitespace characters are significant.
+          If whitespace is significant in source content it is usually significant also in the
+          target content, this is more often then not an internal property of the content format,
+          but it's important to keep this characteristics through transformation pipelines. The
+          danger that this category is trying to prevent is the loss of significant whitespace
+          characters that could not be recovered. This data category is considered XMLism or
+          SGMLism. It should be preserved at LIOM level. However, even XLIFF21 recommends
+          pre-Extaction normalization of whitespace and setting of all inline content whitespace
+          behavior to <code>preserve</code>. This is also the option best interoperable with JSON
+          where all payload whitespace is significant.</para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#idvalue">ID Value</link> indicates via
+            <code>xml:id</code> a globally unique identifier that should be preserved during
+          translation and localization transformations mainly for the purposes of reimport of target
+          content to all the right places in the native environment. XLIFF id mechanism is NMTOKEN
+          rather than NCName based. However, usage of <code>xml:id</code> to encode this metadata
+          category can only be exprected in XML source environments. Therefore, XLIFF and LIOM use
+          an unrestricted string mechanism (<code>original</code> on file, <code>name</code> on
+          group and unit) to roundtrip native IDs. </para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#terminology">Terminology</link> can simply
+          indicate words or multi-word expressions as terms or non-terms. This is how the category
+          worked in <citation>ITS10</citation>. In <citation>ITS20</citation>, Terminology can be
+          more useful by pointing to definitions or indicating a confidence score, which is
+          especially useful in cases the Terminology entry was seeded automatically. Terminology
+          belong exclusively to categories that come from the native format. Together with Text
+          Analysis it can be actually injected into the content during any stage of the lifecycle or
+          roundtrip and is not limited to source. However, it is very important for the localization
+          process, human or machine driven, to have Terminology annotated be it even only the simple
+          Boolean flag. Core <citation>LIOM</citation> doesn't have the capability to say that a
+          content span is not a term, therefore the negative annotation capability is provided via
+          the ITS Module. </para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#textanalysis">Text Analysis</link> is a
+          sister category to Terminology that is new in <citation>ITS20</citation>. It is intended
+          to hold mostly automatically sourced (possibly semi-supervised) entity disambiguation
+          information. This can be useful for translators and reviewers but can also enrich reading
+          experience in purely monolingual settings. This is fully defined in the ITS Module as
+          there is no equivalent in core <citation>LIOM</citation> or
+          <citation>XLIFF21</citation>.</para>
+        <para><link xl:href="">Domain</link> can be used to indicate content topic, specialization
+          or subject matter focus that is required to produce certain translations. This can be for
+          instance used to select a suitably specialized MT engine, such as one trained on an
+          automotive bilingual corpus in case an automotive domain is indicated or. In another use
+          case, a language service provider will use a sworn translator and require in country legal
+          subject matter review in case the domain was indicated as legal. Although ITS data
+          categories are defined independently and don't have implementation dependencies, Domain
+          information is well suited for usage together with the Terminology and Text Analysis
+          datacats.</para>
+        <para>
+          <link xl:href="http://www.w3.org/TR/its20/#mtconfidence">MT Confidence</link>, <link
+            xl:href="http://www.w3.org/TR/its20/#lqissue">Localization Quality Issue</link>, <link
+            xl:href="http://www.w3.org/TR/its20/#lqrating">Localization Quality Rating</link>, and
+            <link xl:href="http://www.w3.org/TR/its20/#provenance">Provenance</link> - all new
+          categories in ITS 2.0 - can be only produced during Localization transformations;
+          specifically, during Machine Translation, during a review or Quality Assurance process,
+          during or immediately after a manual or automated Translation or revision.</para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#mtconfidence">MT Confidence</link> gives a
+          simple score between 0 and 1 that encodes the automated translation system's internal
+          confidence that the produced translation is correct. This score isn't interoperable but
+          can be used in single engine scenarios for instance to color code the translations for
+          readers or post-editors. It can also be used for storing the data for several engines and
+          running comparative studies to make the score interoperable first in specific environments
+          and later on maybe generally. This overlaps with the LIOM Translation Module's property
+            <code>matchQuality</code>. </para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#lqissue">Localization Quality Issue</link>
+          contains a taxonomy of possible Translation and Localization errors that can be applied in
+          annotations of arbitrary content spans. The taxonomy ensures that this information can be
+          exchanged among various Localization roundtrip agents. Although this mark up is typically
+          introduced in a Bitext environment on target spans, marking up source isn't exclude and
+          can be very practical, especially when implementing the feedback or even reporting a
+          source issue. Importantly, the issues and their descriptions can be Extracted into target
+          content and consumed by monolingual reviewers in the native environment. This is fully
+          defined in the ITS Module as there is no equivalent in core <citation>LIOM</citation> or
+            <citation>XLIFF21</citation>.</para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#lqrating">Localization Quality
+            Rating</link> is again a simple score that gives a percentage indicating the quality of
+          any portion of content. This score is obviously only interoperable within an indicated
+          Localization Quality Rating system or metrics. Typically flawless quality is considered
+          100 % and various issue rates per translated volume would strike down percentages,
+          possibly dropping under an acceptance threshold that can be also specified. This is fully
+          defined in the ITS Module as there is no equivalent in core <citation>LIOM</citation> or
+            <citation>XLIFF21</citation>.</para>
+        <para><link xl:href="http://www.w3.org/TR/its20/#provenance">Provenance</link> in ITS is
+          strictly specialized to indicate only translation and revision agents. Agents can be
+          organizations, people or tools or described by combinations of those. For instance,
+          Provenance can indicate that the Reviser John Doe from ACME Language Quality Assurance
+          Inc. produced a content revision with the Perfect Cloud Revision Tool. This is fully
+          defined in the ITS Module as there is no equivalent in core <citation>LIOM</citation> or
+            <citation>XLIFF21</citation>.</para>
+        <para>In spite of <citation>XLIFF21</citation> using the W3C namespace for the ITS Module,
+          there is a systematic scope mismatch between the XLIFF defined ITS attributes and the ITS
+          defined XML attributes. Because <citation>ITS20</citation> has no provision to parse
+          pseudo-spans, it will necessarily fail to identify spans formed by XLIFF Core
+            <code>&lt;sm/></code> and <code>&lt;em/></code> markers.</para>
+        <para>In XLIFF, Modifiers can always transform <code>&lt;mrk id="1">span of
+            text&lt;/mrk></code> into <code> &lt;sm id="1"/>span of text &lt;em
+            startRef="1"/></code>, which is fundamentally inaccessible by ITS Processors (or other
+          generic XML tooling) without extended provisions. Unmodified or unextended ITS Rules will
+          find the <code>&lt;sm/></code> nodes, if those nodes do hold the W3C ITS namespace based
           attributes or native XLIFF attributes that can be globally pointed to by ITS rules, yet
           they will fail to identify the pseudo-spans and will consider the <code>&lt;sm/></code>
           nodes empty, ultimately failing to identify the proper scope of the correctly identified
@@ -709,11 +773,12 @@ version="2.1" srcLang="en" trgLang="fr">
           however often not possible. Had it been possible, XLIFF would have not needed to define
             <code>&lt;sm/></code> and <code>&lt;em/></code> delimited pseudo-spans in the first
           place. </para>
-    <para>Principal reasons to form pseudospans include the following requirements: 1) capability to
-      represent non-XML content, 2) need for overlapping annotations, 3) capability to represent
-      annotations overlapping with formatting spans as well as 4) annotations broken by segmentation
-      (which has to be represented as well formed structural albeit transient nodes).</para>
-    </section>
+        <para>Principal reasons to form pseudospans include the following requirements: 1)
+          capability to represent non-XML content, 2) need for overlapping annotations, 3)
+          capability to represent annotations overlapping with formatting spans as well as 4)
+          annotations broken by segmentation (which has to be represented as well formed structural
+          albeit transient nodes).</para>
+      </section>
   </section>
 </section>
 
@@ -1186,9 +1251,9 @@ version="2.1" srcLang="en" trgLang="fr">
         /></bibliomisc>
     </bibliomixed>
 
-  <bibliomixed><abbrev>XLIFFEMBP</abbrev>D. Filip and J. Husarčík, Eds., <title>XLIFF 2 Extraction and
-        Merging Best Practice, Version 1.0</title>. Globalization and Localization Association
-      (GALA) TAPICC, 2018.</bibliomixed>
+  <bibliomixed><abbrev>XLIFFEMBP</abbrev>D. Filip and J. Husarčík, Eds., <title>XLIFF 2 Extraction
+        and Merging Best Practice, Version 1.0</title>. Globalization and Localization Association
+    (GALA) TAPICC, 2018. <bibliomisc><link xl:href="https://galaglobal.github.io/TAPICC/T1/WG3/rs01/XLIFF-EM-BP-V1.0-rs01.xhtml">https://galaglobal.github.io/TAPICC/T1/WG3/rs01/XLIFF-EM-BP-V1.0-rs01.xhtml</link></bibliomisc>/></bibliomixed>
   
   <bibliomixed><abbrev>XLIFFglsTBXBasic</abbrev> J. Hayes, S. E. Wright, D. Filip, A. Melby, and
       D. Reineke, <title>Interoperability of XLIFF 2.0 Glossary Module and TBX-Basic</title>,
