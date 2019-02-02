@@ -1,0 +1,75 @@
+{
+  "jliff": "2.1",
+  "srcLang": "en-US",
+  "trgLang": "fr-FR",
+  "files": [
+    {
+      "id": "f1",
+      "kind": "file",
+      "subfiles": [
+        {
+          "canResegment": "no",
+          "id": "u1",
+          "kind": "unit",
+          "subunits": [
+            {
+              "canResegment": "no",
+              "kind": "segment",
+              "source": [
+                {
+                  "dataRef": "d1",
+                  "id": "c1",
+                  "kind": "ph"
+                },
+                {
+                  "text": " aaa "
+                },
+                {
+                  "dataRef": "d3",
+                  "id": "c2",
+                  "kind": "ec"
+                },
+                {
+                  "text": "text"
+                },
+                {
+                  "kind": "ec"
+                }
+              ],
+              "target": [
+                {
+                  "dataRef": "d1",
+                  "id": "c1",
+                  "kind": "ph"
+                },
+                {
+                  "text": " AAA "
+                },
+                {
+                  "dataRef": "d3",
+                  "id": "c2",
+                  "kind": "ec"
+                },
+                {
+                  "text": "TEXT"
+                },
+                {
+                  "kind": "ec"
+                }
+              ]
+            },
+            {
+              "kind": "ignorable",
+              "source": [
+                {
+                  "text": ".  "
+                }
+              ],
+              "target": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

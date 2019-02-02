@@ -1,0 +1,53 @@
+{
+  "jliff": "2.1",
+  "srcLang": "en",
+  "trgLang": "fr",
+  "subunits": [
+    {
+      "canResegment": "no",
+      "kind": "segment",
+      "source": [
+        {
+          "dataRef": "d1",
+          "id": "c1",
+          "kind": "ph"
+        },
+        {
+          "text": " aaa "
+        },
+        {
+          "dataRef": "d3",
+          "id": "c2",
+          "kind": "ec"
+        },
+        {
+          "text": "text"
+        },
+        {
+          "kind": "ec"
+        }
+      ],
+      "target": [
+        {
+          "dataRef": "d1",
+          "id": "c1",
+          "kind": "ph"
+        },
+        {
+          "text": " AAA "
+        },
+        {
+          "dataRef": "d3",
+          "id": "c2",
+          "kind": "ec"
+        },
+        {
+          "text": "TEXT"
+        },
+        {
+          "kind": "ec"
+        }
+      ]
+    }
+  ]
+}
