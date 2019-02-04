@@ -705,15 +705,19 @@ version="2.1" srcLang="en" trgLang="fr">
           experience in purely monolingual settings. This is fully defined in the ITS Module as
           there is no equivalent in core <citation>LIOM</citation> or
           <citation>XLIFF21</citation>.</para>
-        <para><link xl:href="">Domain</link> can be used to indicate content topic, specialization
-          or subject matter focus that is required to produce certain translations. This can be for
-          instance used to select a suitably specialized MT engine, such as one trained on an
-          automotive bilingual corpus in case an automotive domain is indicated or. In another use
-          case, a language service provider will use a sworn translator and require in country legal
-          subject matter review in case the domain was indicated as legal. Although ITS data
-          categories are defined independently and don't have implementation dependencies, Domain
-          information is well suited for usage together with the Terminology and Text Analysis
-          datacats.</para>
+        <para><link xl:href="https://www.w3.org/TR/its20/#domain">Domain</link> can be used to
+          indicate content topic, specialization or subject matter focus that is required to produce
+          certain translations. This can be for instance used to select a suitably specialized MT
+          engine, such as one trained on an automotive bilingual corpus in case an automotive domain
+          is indicated or. In another use case, a language service provider will use a sworn
+          translator and require in country legal subject matter review in case the domain was
+          indicated as legal. Although ITS data categories are defined independently and don't have
+          implementation dependencies, Domain information is well suited for usage together with the
+          Terminology and Text Analysis datacats. As the <link
+            xl:href="https://www.w3.org/TR/its20/#domain">Domain</link> datacat doesn't have local
+          markup in the W3C <citation>ITS20</citation> namespace, <citation>XLIFF21</citation> had
+          to define a local <code>itsm:domain</code> attribute that is also taken over as a local
+          property by <citation>LIOM</citation> and <citation>JLIFFSchema</citation>.</para>
         <para>
           <link xl:href="http://www.w3.org/TR/its20/#mtconfidence">MT Confidence</link>, <link
             xl:href="http://www.w3.org/TR/its20/#lqissue">Localization Quality Issue</link>, <link
@@ -773,7 +777,7 @@ version="2.1" srcLang="en" trgLang="fr">
           however often not possible. Had it been possible, XLIFF would have not needed to define
             <code>&lt;sm/></code> and <code>&lt;em/></code> delimited pseudo-spans in the first
           place. </para>
-        <para>Principal reasons to form pseudospans include the following requirements: 1)
+        <para>Principal reasons to form pseudo-spans include the following requirements: 1)
           capability to represent non-XML content, 2) need for overlapping annotations, 3)
           capability to represent annotations overlapping with formatting spans as well as 4)
           annotations broken by segmentation (which has to be represented as well formed structural
@@ -831,11 +835,11 @@ version="2.1" srcLang="en" trgLang="fr">
           custom namespace based extentions);</para></listitem>
       <listitem>
     <para>JLIFF extensions are defined by the optional JSON-LD context <code>"@context": {…}</code>
-          as a property of the anonymous JLIFF root object. JSON-LD offers a suitable replacement of
-          XML namespaces required for extension identification and processing. A JSON-LD context is
-          a mapping of prefixes to IRIs. A JSON-LD processor resolves the prefix in an object
-          property name and thus creates a fully qualified name containing the corresponding IRI
-          qualifier;</para></listitem>
+          as a property of the anonymous JLIFF root object. <citation>JSON-LD</citation> offers a
+          suitable replacement of XML namespaces required for extension identification and
+          processing. A JSON-LD context is a mapping of prefixes to IRIs. A JSON-LD processor
+          resolves the prefix in an object property name and thus creates a fully qualified name
+          containing the corresponding IRI qualifier;</para></listitem>
       
       <listitem>
     <para>To identify JLIFF documents, the anonymous JLIFF root object has a required property
@@ -855,19 +859,20 @@ version="2.1" srcLang="en" trgLang="fr">
         <code>&lt;pc/></code> and <code>&lt;mrk/></code> elements as explained above.</para>
     <para>Further design considerations worth noting include:<orderedlist>
         <listitem>
-          <para>While JSON supports the Boolean type values <code>true</code> and <code>false</code>, it
-            was decided to use string based enumerations of <code>yes</code> and <code>no</code> in JLIFF
-            to represent XLIFF attributes of the <code>yesNo</code> type. There are two main reasons for
-            this. Firstly, the omission of a Boolean value is usually associated with the value false by
-            processors and applications. By contrast, the absence of a value should not default to false
-            in JLIFF. The absence of a value has an XLIFF driven meaning. In fact the XLIFF default of the
-            <code>yesNo</code> attributes is <code>yes</code>. Absence of of an attribute typically
-            indicates permission. Hence we defined the yes defaults in the JLIFF JSON schema, which would
-            have conflicted with the defaulting behavior of the JSON Boolean type. Secondly, the object
-            property <code>canReorder</code> of the <code>ec</code>, <code>ph</code>, and <code>sc</code>
-            objects is three-valued with the <code>yes</code>, <code>no</code>, and <code>firstNo</code>
-            enumeration, necessitating the use of a JSON string type rather than a JSON Boolean type in
-            JLIFF.</para>
+          <para>While JSON supports the Boolean type values <code>true</code> and
+            <code>false</code>, it was decided to use string based enumerations of <code>yes</code>
+            and <code>no</code> in JLIFF to represent XLIFF attributes of the <code>yesNo</code>
+            type. There are two main reasons for this. Firstly, the omission of a Boolean value is
+            usually associated with the value false by processors and applications. By contrast, the
+            absence of a value should not default to false in JLIFF. The absence of a value has an
+            XLIFF driven meaning. In fact the XLIFF default of the <code>yesNo</code> attributes is
+              <code>yes</code>. Absence of of an attribute typically indicates permission. Hence we
+            defined the yes defaults in the JLIFF JSON schema, which would have conflicted with the
+            defaulting behavior of the JSON Boolean type. Secondly, the object property
+              <code>canReorder</code> of the <code>ec</code>, <code>ph</code>, and <code>sc</code>
+            objects is a three-valued enumeration with the <code>yes</code>, <code>no</code>, and
+              <code>firstNo</code> values, necessitating the use of a JSON string type with
+            enumeration rather than a JSON Boolean type in JLIFF.</para>
         </listitem>
       <listitem>
         <para>Almost all JSON schema types defined for JLIFF correspond one-to-one with JSON object
@@ -888,26 +893,27 @@ version="2.1" srcLang="en" trgLang="fr">
             while the other types are objects.</para>
       </listitem>
         <listitem>
-          <para>JLIFF considers modules an integral part of the JLIFF specification, meaning that
-            all modules are part of the single JSON schema specification of JLIFF. The decision to
-            make modules part of the JLIFF specification is a practical one that simplifies the
-            processing of modules by processors, as modules are frequently used (albeit different
-            subsets based on individual needs and specializations) by implementers. By contrast,
-            extensions are registered externally and included in JLIFF documents as
-              <code>userdata</code> objects. A <code>userdata</code> object contains one or more
-            extensions as key-value pairs: each extension is identified by a qualified property with
-            an extension-specific JSON value. The prefix of the qualified property of an extension
-            is bound to the IRI of the extension using the JSON-LD <code>@context</code> to identify
-            the unique extension namespace IRI. Processors that are required to handle extensions
-            should resolve the prefix to the extension’s objects fully qualified names as per
-            JSON-LD processing requirements. Otherwise extensions can be ignored without raising
-            validation failures. This approach offers an extensible and flexible mechanism for JLIFF
-            extensions. While the JSON-LD workaround for namespaces was considered a suitable
-            solution for extensions, it was considered heavy weight and to complex for modules that
-            are used regularly. The "context" of modules is considered a shared JLIFF agent
-            knowledge documented in the prose specification rather then being resolved each time
-            when module data need processed, hammering OASIS servers that would need to hold the
-            canonical context files required for proper JSON-LD processing.</para>
+          <para>JLIFF considers LIOM Modules an integral part of the JLIFF specification, meaning
+            that all Modules are part of the single JSON schema specification of JLIFF
+              <citation>JLIFFSchema</citation>. The decision to make Modules part of the JLIFF
+            specification is a practical one that simplifies the processing of Modules by
+            processors, as Modules are frequently used (albeit different subsets based on individual
+            needs and specializations) by implementers. By contrast, extensions are registered
+            externally and included in JLIFF documents as <code>userdata</code> objects. A
+              <code>userdata</code> object contains one or more extensions as key-value pairs: each
+            extension is identified by a qualified property with an extension-specific JSON value.
+            The prefix of the qualified property of an extension is bound to the IRI of the
+            extension using the JSON-LD <code>@context</code> to identify the unique extension
+            namespace IRI. Processors that are required to handle extensions should resolve the
+            prefix to the extension’s objects fully qualified names as per JSON-LD processing
+            requirements. Otherwise extensions can be ignored without raising validation failures.
+            This approach offers an extensible and flexible mechanism for JLIFF extensions. While
+            the JSON-LD workaround for namespaces was considered a suitable solution for extensions,
+            it was considered heavy weight and to complex for modules that are used regularly. The
+            "context" of modules is considered a shared JLIFF agent knowledge documented in the
+            prose specification rather then being resolved each time when module data need
+            processed, hammering OASIS servers that would need to hold the canonical context files
+            required for proper JSON-LD processing.</para>
         </listitem>
     </orderedlist>
     </para>
@@ -941,10 +947,10 @@ version="2.1" srcLang="en" trgLang="fr">
       of <citation>Unicode</citation> to delimit inline markup tags. See
         <citation>OkapiFwk</citation>
         <link xl:href="http://okapiframework.org/devguide/gettingstarted.html#textUnits">http://okapiframework.org/devguide/gettingstarted.html#textUnits</link>.</para>
-    <para>The following program listings demonstrate JGT can be used to exchange the flattened
-      fragments instead of the fully equivalent JLIFF. This capability is based on JLIFF having been
-      designed to support any of the four logically possible LIOM roots, see <link
-        xl:href="#LIOMCore">LIOM Core Structure</link>.</para>
+    <para>The following program listings demonstrate <citation>JGT</citation> can be used to
+      exchange the flattened fragments instead of the fully equivalent JLIFF. This capability is
+      based on JLIFF having been designed to support any of the four logically possible LIOM roots,
+      see <link xl:href="#LIOMCore">LIOM Core Structure</link>.</para>
     <para>
       <example>
         <title>Simple XLIFF input</title>
@@ -1135,16 +1141,16 @@ version="2.1" srcLang="en" trgLang="fr">
       "type": "string",
       "pattern": "^[_A-Za-z][-._A-Za-z0-9]*$"
     }</programlisting></example></para>
-    <para>Namespaces
-      support workarounds in JSON are worth an extra mention. While JSON doesn't support namespaces
-        <emphasis>per se</emphasis>. We identified the JSON-LD methods for introducing and
-      shortening fully qualified names quite useful as a namespaces support surrogate. For practical
-      reasons (like prevention of hammering of OASIS servers to read XLIFF module context files) we
-      decided to use the full blown JSON-LD method for expanding prefixes into fully qualified names
-      only for extensions. We decided to use an arbitrary "_" (underscore) prefix separator to make
-      the XLIFF modules human discernable. There goes the disadvantage of losing the modularity of
-      XLIFF modules in JLIFF, yet we felt that JSON-LD-coding of each of the modules data would be
-      very oblique and heavyweight with minor benefits to outweigh the drawbacks.</para>
+    <para>Namespaces support workarounds in JSON are worth an extra mention. While JSON doesn't
+      support namespaces <emphasis>per se</emphasis>. We identified the JSON-LD methods for
+      introducing and shortening fully qualified names quite useful as a namespaces support
+      surrogate. For practical reasons (like prevention of hammering of OASIS servers to read XLIFF
+      module context files) we decided to use the full blown JSON-LD method for expanding prefixes
+      into fully qualified names only for extensions. We decided to use an arbitrary "_"
+      (underscore) prefix separator to make the XLIFF modules human discernable. There goes the
+      disadvantage of losing the modularity of XLIFF modules in JLIFF, yet we felt that
+      JSON-LD-coding of each of the modules data would be very complex and heavyweight with minor
+      benefits to outweigh the drawbacks.</para>
   </section>
 
 <bibliography xml:id="references">
